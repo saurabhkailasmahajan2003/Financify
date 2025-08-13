@@ -71,7 +71,6 @@
             padding-top: var(--main-header-height);
         }
 
-        /* The navbar styling is identical to your previous code to maintain consistency. */
         /* --- Header (Navbar) --- */
         .header {
             display: flex;
@@ -461,6 +460,20 @@
             z-index: 1;
         }
 
+        .placeholder-video-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: var(--secondary-text);
+            font-size: 1.2rem;
+            font-weight: 500;
+            z-index: 0;
+        }
+        .placeholder-video-text#advisorStatus {
+            z-index: 2; /* Ensure it's above the advisor video element but below the controls */
+        }
+
         .user-video-pip {
             position: absolute;
             bottom: var(--spacing-md);
@@ -473,8 +486,23 @@
             box-shadow: 0 4px 10px var(--shadow-medium);
             overflow: hidden;
             z-index: 5;
-            resize: both;
-            cursor: move;
+        }
+
+        .user-video-pip .video-feed {
+            position: relative;
+        }
+        
+        .user-video-pip .placeholder-video-text {
+            bottom: var(--spacing-xs);
+            right: var(--spacing-xs);
+            top: auto;
+            left: auto;
+            transform: none;
+            font-size: 0.9rem;
+            color: var(--primary-text);
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 4px 8px;
+            border-radius: var(--border-radius);
         }
 
         .participant-info {
@@ -530,8 +558,13 @@
             background-color: var(--primary-gold);
             color: var(--card-bg);
         }
-        
-        .control-bar .control-btn:hover {
+
+        .control-bar .control-btn.off {
+            background-color: var(--danger-color);
+            color: white;
+        }
+
+        .control-bar .control-btn:not(.off):hover {
             background-color: var(--border-color);
         }
         
@@ -548,6 +581,8 @@
             align-items: center;
             gap: var(--spacing-xs);
             font-weight: 600;
+            border: none;
+            cursor: pointer;
         }
 
         .control-bar .end-session-btn:hover {
@@ -754,6 +789,8 @@
             .user-video-pip {
                 width: 120px;
                 height: 90px;
+                bottom: 10px;
+                right: 10px;
             }
             .panel {
                 width: 100%;
@@ -781,10 +818,10 @@
                 </button>
                 <div class="logo">Fina<span class="logo-text">cify</span></div>
             </div>
-<!--             <div class="search-bar">
+            <div class="search-bar">
                 <input type="text" placeholder="Search for advisors, topics...">
                 <span class="material-symbols-outlined search-icon">search</span>
-            </div> -->
+            </div>
             <div class="header-right">
                 <button id="theme-switcher" class="icon-btn" aria-label="Toggle Theme">
                     <span class="material-symbols-outlined">light_mode</span>
@@ -834,8 +871,8 @@
 
             <div class="main-video-area">
                 <video id="advisorVideo" class="video-feed advisor-video" autoplay muted playsinline></video>
-                <div class="placeholder-video-text">
-                    <p id="advisorStatus">Waiting for Advisor...</p>
+                <div id="advisorStatusPlaceholder" class="placeholder-video-text">
+                    <p id="advisorStatus">Connecting to Advisor...</p>
                 </div>
 
                 <div id="userVideoPip" class="user-video-pip">
@@ -844,7 +881,7 @@
                 </div>
 
                 <div class="participant-info">
-                    <h4>Advisor S.K.</h4>
+                    <h4 id="advisorName">Advisor S.K.</h4>
                     <p>Investment Planning</p>
                 </div>
             </div>
@@ -902,7 +939,7 @@
             <div id="participants-panel" class="panel">
                 <div class="panel-header">
                     <h4>Participants</h4>
-                    <button class="close-btn" aria-label="Close Participants">
+                    <button class="close-btn" data-panel-target="participants-panel" aria-label="Close Participants">
                         <span class="material-symbols-outlined">close</span>
                     </button>
                 </div>
@@ -927,7 +964,7 @@
             <div id="notes-panel" class="panel">
                 <div class="panel-header">
                     <h4>AI Notes & Transcript</h4>
-                    <button class="close-btn" aria-label="Close Notes">
+                    <button class="close-btn" data-panel-target="notes-panel" aria-label="Close Notes">
                         <span class="material-symbols-outlined">close</span>
                     </button>
                 </div>
@@ -943,15 +980,48 @@
     </div>
 
     <script>
-        // Navbar functionality (copied from your original code)
-        const hamburgerBtn = document.getElementById('hamburgerBtn');
-        const profileBtn = document.getElementById('profileBtn');
-        const profileDropdown = document.getElementById('profileDropdown');
-        const mobileMenu = document.getElementById('mobileMenu');
-        const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
+        // DOM Elements
         const body = document.body;
         const themeSwitcher = document.getElementById('theme-switcher');
-        
+        const hamburgerBtn = document.getElementById('hamburgerBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
+        const profileBtn = document.getElementById('profileBtn');
+        const profileDropdown = document.getElementById('profileDropdown');
+
+        // Video & Media Elements
+        const advisorVideo = document.getElementById('advisorVideo');
+        const userVideo = document.getElementById('userVideo');
+        const advisorStatusPlaceholder = document.getElementById('advisorStatusPlaceholder');
+
+        // Control Bar Buttons
+        const micBtn = document.getElementById('micBtn');
+        const cameraBtn = document.getElementById('cameraBtn');
+        const participantsBtn = document.getElementById('participantsBtn');
+        const notesBtn = document.getElementById('notesBtn');
+
+        // Panels & Overlays
+        const participantsPanel = document.getElementById('participants-panel');
+        const notesPanel = document.getElementById('notes-panel');
+        const callInviteOverlay = document.getElementById('callInviteOverlay');
+        const acceptCallBtn = document.querySelector('.modal-actions .accept');
+
+        // Session Info
+        const sessionStatus = document.getElementById('sessionStatus');
+        const sessionTimer = document.getElementById('sessionTimer');
+        let timerInterval;
+        let seconds = 0;
+        let isSessionLive = false;
+
+        // Public video URLs for the host/advisor
+        const videoUrls = [
+            'https://www.w3schools.com/html/mov_bbb.mp4',
+            'https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-mp4-file.mp4',
+            'https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4',
+            'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4'
+        ];
+
+        // --- Theme Switcher Logic ---
         themeSwitcher.addEventListener('click', () => {
             body.classList.toggle('day-theme');
             const isDayTheme = body.classList.contains('day-theme');
@@ -965,142 +1035,33 @@
                 themeSwitcher.querySelector('span').textContent = 'dark_mode';
             }
         });
-        
+
+        // --- Navbar & Panel Toggle Logic ---
         hamburgerBtn.addEventListener('click', () => {
             mobileMenu.classList.toggle('active');
             hamburgerBtn.classList.toggle('active');
-            mobileMenuOverlay.classList.toggle('active');
         });
-
+        
         mobileMenuOverlay.addEventListener('click', () => {
             mobileMenu.classList.remove('active');
             hamburgerBtn.classList.remove('active');
-            mobileMenuOverlay.classList.remove('active');
-        });
-        
-        profileBtn.addEventListener('click', (event) => {
-            profileDropdown.classList.toggle('active');
-            event.stopPropagation();
         });
 
-        document.addEventListener('click', (event) => {
-            if (!profileBtn.contains(event.target) && !profileDropdown.contains(event.target)) {
+        profileBtn.addEventListener('click', () => {
+            profileDropdown.classList.toggle('active');
+        });
+
+        window.addEventListener('click', (e) => {
+            if (!profileBtn.contains(e.target) && !profileDropdown.contains(e.target)) {
                 profileDropdown.classList.remove('active');
             }
         });
 
-        // Drag and drop for User Video PiP
-        const userVideoPip = document.getElementById('userVideoPip');
-        let isDragging = false;
-        let offset = { x: 0, y: 0 };
-
-        userVideoPip.addEventListener('mousedown', (e) => {
-            isDragging = true;
-            offset.x = e.clientX - userVideoPip.getBoundingClientRect().left;
-            offset.y = e.clientY - userVideoPip.getBoundingClientRect().top;
-            userVideoPip.style.cursor = 'grabbing';
-            e.preventDefault();
-        });
-
-        document.addEventListener('mousemove', (e) => {
-            if (isDragging) {
-                userVideoPip.style.left = `${e.clientX - offset.x}px`;
-                userVideoPip.style.top = `${e.clientY - offset.y}px`;
-                userVideoPip.style.right = 'auto'; // Disable right/bottom positioning when dragging
-                userVideoPip.style.bottom = 'auto';
-            }
-        });
-
-        document.addEventListener('mouseup', () => {
-            isDragging = false;
-            userVideoPip.style.cursor = 'move';
-        });
-
-        // Control Bar Button Toggles
-        const micBtn = document.getElementById('micBtn');
-        const cameraBtn = document.getElementById('cameraBtn');
-        const sessionStatus = document.getElementById('sessionStatus');
-        const endCallBtn = document.getElementById('endCallBtn');
-        const participantsBtn = document.getElementById('participantsBtn');
-        const notesBtn = document.getElementById('notesBtn');
-
-        micBtn.addEventListener('click', () => {
-            micBtn.classList.toggle('active');
-            micBtn.querySelector('span').textContent = micBtn.classList.contains('active') ? 'mic_off' : 'mic';
-        });
-
-        cameraBtn.addEventListener('click', () => {
-            cameraBtn.classList.toggle('active');
-            cameraBtn.querySelector('span').textContent = cameraBtn.classList.contains('active') ? 'videocam_off' : 'videocam';
-        });
-        
-        endCallBtn.addEventListener('click', () => {
-            const confirmEnd = confirm('Are you sure you want to end the session?');
-            if (confirmEnd) {
-                window.location.href = 'index.html'; // Redirect to home page
-            }
-        });
-        
-        // Timer
-        let timerInterval;
-        let seconds = 0;
-        let minutes = 0;
-        let hours = 0;
-        const sessionTimer = document.getElementById('sessionTimer');
-        
-        function startTimer() {
-            timerInterval = setInterval(() => {
-                seconds++;
-                if (seconds === 60) {
-                    seconds = 0;
-                    minutes++;
-                }
-                if (minutes === 60) {
-                    minutes = 0;
-                    hours++;
-                }
-                const displayTime = 
-                    (hours < 10 ? '0' + hours : hours) + ':' +
-                    (minutes < 10 ? '0' + minutes : minutes) + ':' +
-                    (seconds < 10 ? '0' + seconds : seconds);
-                sessionTimer.textContent = displayTime;
-            }, 1000);
-        }
-
-        // Simulating a call invite and session start
-        window.addEventListener('load', () => {
-            const inviteOverlay = document.getElementById('callInviteOverlay');
-            inviteOverlay.classList.add('active');
-            
-            document.querySelector('.accept').addEventListener('click', () => {
-                inviteOverlay.classList.remove('active');
-                sessionStatus.textContent = 'Live';
-                sessionStatus.classList.remove('connecting');
-                sessionStatus.classList.add('live');
-                startTimer();
-                
-                // Simulate video streams
-                // This would be replaced with actual WebRTC streams
-                const advisorVideo = document.getElementById('advisorVideo');
-                const userVideo = document.getElementById('userVideo');
-                advisorVideo.src = "https://www.w3schools.com/html/mov_bbb.mp4";
-                userVideo.src = "https://www.w3schools.com/html/mov_bbb.mp4";
-            });
-            
-            document.querySelector('.decline').addEventListener('click', () => {
-                window.location.href = 'index.html'; // Or go back to the previous page
-            });
-        });
-        
-        // Panel Toggles (Participants & Notes)
-        const participantsPanel = document.getElementById('participants-panel');
-        const notesPanel = document.getElementById('notes-panel');
-        
         participantsBtn.addEventListener('click', () => {
             participantsPanel.classList.toggle('active');
             notesPanel.classList.remove('active');
         });
-        
+
         notesBtn.addEventListener('click', () => {
             notesPanel.classList.toggle('active');
             participantsPanel.classList.remove('active');
@@ -1108,11 +1069,113 @@
 
         document.querySelectorAll('.panel .close-btn').forEach(btn => {
             btn.addEventListener('click', (e) => {
-                e.target.closest('.panel').classList.remove('active');
+                const panel = e.target.closest('.panel');
+                if (panel) {
+                    panel.classList.remove('active');
+                }
             });
         });
 
+        // --- Video & Camera Logic ---
+        function startTimer() {
+            timerInterval = setInterval(() => {
+                seconds++;
+                const hours = Math.floor(seconds / 3600);
+                const minutes = Math.floor((seconds % 3600) / 60);
+                const remainingSeconds = seconds % 60;
+                
+                const formatTime = (time) => String(time).padStart(2, '0');
+                
+                sessionTimer.textContent = `${formatTime(hours)}:${formatTime(minutes)}:${formatTime(remainingSeconds)}`;
+            }, 1000);
+        }
+
+        async function startSession() {
+            // Start the advisor video (host's screen)
+            try {
+                const randomIndex = Math.floor(Math.random() * videoUrls.length);
+                advisorVideo.src = videoUrls[randomIndex];
+                await advisorVideo.play();
+                console.log('Host video started successfully.');
+                advisorStatusPlaceholder.style.display = 'none'; // Hide placeholder once video starts
+            } catch (error) {
+                console.error('Error starting host video:', error);
+                advisorStatusPlaceholder.textContent = 'Could not load host video.';
+            }
+
+            // Start the user's camera feed
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+                userVideo.srcObject = stream;
+                userVideo.play();
+                console.log('User camera started successfully.');
+
+                // Update session status once both streams are ready
+                isSessionLive = true;
+                sessionStatus.textContent = 'Live';
+                sessionStatus.classList.remove('connecting');
+                sessionStatus.classList.add('live');
+                startTimer();
+
+                // Set initial state of control buttons
+                micBtn.classList.add('active');
+                cameraBtn.classList.add('active');
+
+            } catch (error) {
+                console.error('Error accessing user media:', error);
+                const statusMessage = document.querySelector('#userVideoPip .placeholder-video-text');
+                if (error.name === 'NotAllowedError') {
+                    statusMessage.textContent = 'Camera access denied.';
+                } else if (error.name === 'NotFoundError') {
+                    statusMessage.textContent = 'No camera or microphone found.';
+                } else {
+                    statusMessage.textContent = 'Could not access your devices.';
+                }
+            }
+        }
+        
+        // --- Control Button Functionality ---
+        micBtn.addEventListener('click', () => {
+            const stream = userVideo.srcObject;
+            if (stream) {
+                const audioTrack = stream.getAudioTracks()[0];
+                if (audioTrack) {
+                    audioTrack.enabled = !audioTrack.enabled;
+                    micBtn.classList.toggle('off', !audioTrack.enabled);
+                    micBtn.classList.toggle('active', audioTrack.enabled);
+                    micBtn.querySelector('span').textContent = audioTrack.enabled ? 'mic' : 'mic_off';
+                }
+            }
+        });
+
+        cameraBtn.addEventListener('click', () => {
+            const stream = userVideo.srcObject;
+            if (stream) {
+                const videoTrack = stream.getVideoTracks()[0];
+                if (videoTrack) {
+                    videoTrack.enabled = !videoTrack.enabled;
+                    cameraBtn.classList.toggle('off', !videoTrack.enabled);
+                    cameraBtn.classList.toggle('active', videoTrack.enabled);
+                    cameraBtn.querySelector('span').textContent = videoTrack.enabled ? 'videocam' : 'videocam_off';
+                }
+            }
+        });
+
+        // --- Call Invitation Modal ---
+        // This is a simulated call invitation. In a real app, this would be triggered by a server event.
+        function showCallInvite() {
+            callInviteOverlay.classList.add('active');
+        }
+
+        acceptCallBtn.addEventListener('click', () => {
+            callInviteOverlay.classList.remove('active');
+            startSession();
+        });
+
+        // Start the process when the page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            showCallInvite();
+        });
     </script>
 </body>
-
 </html>
