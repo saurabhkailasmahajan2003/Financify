@@ -168,12 +168,12 @@
         .hamburger-icon {
             width: 30px;
             height: 20px;
-            display: flex;
+            display: none; /* Hide on large screens */
             flex-direction: column;
             justify-content: space-between;
             cursor: pointer;
             position: relative;
-            z-index: 100;
+            z-index: 1001; /* Must be higher than mobile menu overlay */
             background: none;
             border: none;
             padding: 0;
@@ -295,7 +295,7 @@
             width: 300px;
             background-color: var(--card-bg);
             border-right: 1px solid var(--border-color);
-            z-index: 999;
+            z-index: 1000;
             padding-top: var(--main-header-height);
             transition: left 0.3s ease;
             display: flex;
@@ -331,7 +331,7 @@
             width: 100%;
             height: 100%;
             background-color: rgba(0, 0, 0, 0.5);
-            z-index: 998;
+            z-index: 999;
             visibility: hidden;
             opacity: 0;
             transition: opacity 0.3s ease, visibility 0.3s ease;
@@ -539,25 +539,33 @@
         /* Responsive Styles */
         @media (max-width: 768px) {
             .header {
-                flex-wrap: wrap;
+                justify-content: space-between;
+                flex-wrap: nowrap;
                 padding: var(--spacing-sm);
+                height: auto; /* Allow header to wrap on mobile */
+                align-items: flex-start;
+                flex-direction: column;
             }
             
             .header-left {
-                order: 1;
                 width: 100%;
                 justify-content: space-between;
+                order: 1;
             }
             
             .header-right {
-                display: none;
+                display: none; /* Hide desktop menu icons on mobile */
             }
 
             .header .search-bar {
                 margin: var(--spacing-sm) 0;
                 order: 2;
                 flex-basis: 100%;
-                max-width: none;
+                max-width: 100%;
+            }
+
+            .hamburger-icon {
+                display: flex;
             }
 
             .advisors-page {
@@ -593,12 +601,12 @@
     <div class="main-container">
         <header class="header">
             <div class="header-left">
-                <button id="hamburgerBtn" class="hamburger-icon">
+                <button id="hamburgerBtn" class="hamburger-icon" aria-label="Open Mobile Menu">
                     <span></span>
                     <span></span>
                     <span></span>
                 </button>
-                <div class="logo">Finacify</div>
+                <div class="logo">Fina<span class="logo-text">cify</span></div>
             </div>
             <div class="search-bar">
                 <input type="text" placeholder="Search for advisors, topics...">
@@ -649,24 +657,18 @@
             </div>
             
             <div id="advisorList" class="advisor-list">
-                </div>
+            </div>
         </div>
 
         <footer class="footer">
             <div class="footer-content">
                 <div class="footer-section">
-                    <div class="logo">Finacify</div>
+                    <div class="logo">Fina<span class="logo-text">cify</span></div>
                     <p>Your journey to financial wellness starts here. Get expert advice and personalized plans to achieve your goals.</p>
                     <div class="social-icons">
-                        <a href="#"><span class="material-symbols-outlined">
-                            link
-                        </span></a>
-                        <a href="#"><span class="material-symbols-outlined">
-                            link
-                        </span></a>
-                        <a href="#"><span class="material-symbols-outlined">
-                            link
-                        </span></a>
+                        <a href="#"><span class="material-symbols-outlined">link</span></a>
+                        <a href="#"><span class="material-symbols-outlined">link</span></a>
+                        <a href="#"><span class="material-symbols-outlined">link</span></a>
                     </div>
                 </div>
                 <div class="footer-section">
@@ -773,17 +775,9 @@
                         <span class="material-symbols-outlined">star</span>
                         ${advisor.rating} (${advisor.consults}+ consults)
                     </div>
-                    <button class="voice-btn">Book Voice Session</button>
+                    <a href="voice.html" class="voice-btn">Book Voice Session</a>
                 `;
                 advisorList.appendChild(card);
-            });
-            
-            // Add click event listeners to all newly rendered buttons
-            const voiceButtons = document.querySelectorAll('.voice-btn');
-            voiceButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    alert('Redirecting to Voice Session...');
-                });
             });
         }
 
@@ -818,11 +812,13 @@
         hamburgerBtn.addEventListener('click', () => {
             mobileMenu.classList.toggle('active');
             hamburgerBtn.classList.toggle('active');
+            mobileMenuOverlay.classList.toggle('active');
         });
 
         mobileMenuOverlay.addEventListener('click', () => {
             mobileMenu.classList.remove('active');
             hamburgerBtn.classList.remove('active');
+            mobileMenuOverlay.classList.remove('active');
         });
         
         // Profile Dropdown Toggle
