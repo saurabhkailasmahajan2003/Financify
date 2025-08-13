@@ -1,15 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Finacify - Financial Consulting</title>
-    
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
 
     <style>
         /*
@@ -20,24 +23,36 @@
 
         /* Color & Spacing Variables (Night Theme - Default) */
         :root {
-            --bg-color: #000000;        /* Black */
-            --card-bg: #121212;         /* Very Dark Gray for cards */
-            --primary-text: #F8F8F8;    /* Off-White for primary text */
-            --secondary-text: #C0C0C0;  /* Silver for secondary text */
-            --primary-gold: #C5A880;    /* Champagne Gold for buttons & main elements */
-            --accent-offwhite: #F8F8F8; /* Off-White for accents */
-            --border-color: #333333;    /* Dark Gray for borders */
+            --bg-color: #000000;
+            /* Black */
+            --card-bg: #121212;
+            /* Very Dark Gray for cards */
+            --primary-text: #F8F8F8;
+            /* Off-White for primary text */
+            --secondary-text: #C0C0C0;
+            /* Silver for secondary text */
+            --primary-gold: #C5A880;
+            /* Champagne Gold for buttons & main elements */
+            --accent-offwhite: #F8F8F8;
+            /* Off-White for accents */
+            --border-color: #333333;
+            /* Dark Gray for borders */
             --shadow-light: rgba(255, 255, 255, 0.05);
             --shadow-medium: rgba(255, 255, 255, 0.1);
         }
 
         /* Day Theme Variables */
         .day-theme {
-            --bg-color: #F8F8F8;        /* Off-White */
-            --card-bg: #FFFFFF;         /* White for cards */
-            --primary-text: #000000;    /* Black for primary text */
-            --secondary-text: #666666;  /* Gray for secondary text */
-            --border-color: #E0E0E0;    /* Light Gray for borders */
+            --bg-color: #F8F8F8;
+            /* Off-White */
+            --card-bg: #FFFFFF;
+            /* White for cards */
+            --primary-text: #000000;
+            /* Black for primary text */
+            --secondary-text: #666666;
+            /* Gray for secondary text */
+            --border-color: #E0E0E0;
+            /* Light Gray for borders */
             --shadow-light: rgba(0, 0, 0, 0.05);
             --shadow-medium: rgba(0, 0, 0, 0.1);
         }
@@ -71,7 +86,7 @@
             overflow-x: hidden;
             position: relative;
         }
-        
+
         .container {
             max-width: 1200px;
             margin: 0 auto;
@@ -93,7 +108,7 @@
             position: relative;
             color: var(--primary-text);
         }
-        
+
         h2::after {
             content: '';
             position: absolute;
@@ -105,7 +120,7 @@
             background-color: var(--primary-gold);
             border-radius: 2px;
         }
-        
+
         /* --- Hamburger & Profile Dropdown Styling --- */
         .sidebar-menu {
             position: fixed;
@@ -126,7 +141,7 @@
         .sidebar-menu.active {
             transform: translateX(0);
         }
-        
+
         .sidebar-menu .menu-header {
             padding: var(--spacing-md);
             display: flex;
@@ -134,7 +149,7 @@
             align-items: center;
             border-bottom: 1px solid var(--border-color);
         }
-        
+
         .sidebar-menu .menu-header h3 {
             font-size: 1.5rem;
             font-weight: 600;
@@ -148,7 +163,7 @@
             gap: var(--spacing-xs);
             padding: var(--spacing-sm);
         }
-        
+
         .sidebar-menu .menu-items a {
             color: var(--secondary-text);
             display: flex;
@@ -158,23 +173,23 @@
             border-radius: var(--border-radius);
             opacity: 0.8;
         }
-        
+
         .sidebar-menu .menu-items a:hover {
             background-color: var(--border-color);
             color: var(--primary-gold);
             opacity: 1;
         }
-        
+
         .sidebar-menu .menu-items .material-symbols-outlined {
             color: var(--secondary-text);
             opacity: 0.8;
         }
-        
+
         .sidebar-menu .menu-items a:hover .material-symbols-outlined {
             color: var(--primary-gold);
             opacity: 1;
         }
-        
+
         .sidebar-menu .icon-btn {
             cursor: pointer;
         }
@@ -195,13 +210,13 @@
             transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
             border: 1px solid var(--border-color);
         }
-        
+
         .profile-dropdown.active {
             visibility: visible;
             opacity: 1;
             transform: translateY(0);
         }
-        
+
         .profile-dropdown .profile-header {
             display: flex;
             flex-direction: column;
@@ -209,7 +224,7 @@
             padding-bottom: var(--spacing-sm);
             border-bottom: 1px solid var(--border-color);
         }
-        
+
         .profile-dropdown .profile-header .profile-pic {
             width: 50px;
             height: 50px;
@@ -221,23 +236,23 @@
             font-size: 1.5rem;
             color: var(--card-bg);
         }
-        
+
         .profile-dropdown .profile-header h3 {
             margin-top: var(--spacing-xs);
             font-size: 1rem;
             color: var(--primary-text);
         }
-        
+
         .profile-dropdown .profile-header p {
             font-size: 0.9rem;
             color: var(--secondary-text);
         }
-        
+
         .profile-dropdown .dropdown-items {
             list-style: none;
             padding: var(--spacing-sm) 0;
         }
-        
+
         .profile-dropdown .dropdown-items li a {
             display: flex;
             align-items: center;
@@ -251,7 +266,7 @@
             background-color: var(--border-color);
             color: var(--primary-gold);
         }
-        
+
         .profile-dropdown .logout-btn {
             display: block;
             width: 100%;
@@ -262,12 +277,12 @@
             border-radius: 50px;
             margin-top: var(--spacing-xs);
         }
-        
+
         .profile-dropdown .logout-btn:hover {
             background-color: #d1b48b;
             color: var(--card-bg);
         }
-        
+
         /* --- Header (Navbar) --- */
         .header {
             display: flex;
@@ -281,7 +296,7 @@
             z-index: 1000;
             box-shadow: 0 2px 5px var(--shadow-medium);
         }
-        
+
         .header-left {
             display: flex;
             align-items: center;
@@ -304,7 +319,7 @@
         .header .logo-text {
             color: var(--primary-gold);
         }
-        
+
         .header .theme-switcher {
             background: none;
             border: none;
@@ -312,7 +327,7 @@
             cursor: pointer;
             color: var(--secondary-text);
         }
-        
+
         .header .theme-switcher:hover {
             color: var(--primary-gold);
         }
@@ -370,7 +385,7 @@
             background-color: var(--card-bg);
             color: var(--primary-gold);
         }
-        
+
         .hamburger-icon {
             width: 30px;
             height: 20px;
@@ -384,7 +399,7 @@
             border: none;
             padding: 0;
         }
-        
+
         .hamburger-icon span {
             display: block;
             width: 100%;
@@ -393,13 +408,15 @@
             border-radius: 2px;
             transition: transform 0.3s ease, opacity 0.3s ease;
         }
-        
+
         .hamburger-icon.active span:first-child {
             transform: translateY(9px) rotate(45deg);
         }
+
         .hamburger-icon.active span:nth-child(2) {
             opacity: 0;
         }
+
         .hamburger-icon.active span:last-child {
             transform: translateY(-9px) rotate(-45deg);
         }
@@ -407,13 +424,13 @@
         /* --- Hero Section --- */
         .hero {
             text-align: center;
-            padding: var(--spacing-lg) var(--spacing-sm); 
+            padding: var(--spacing-lg) var(--spacing-sm);
             position: relative;
             overflow: hidden;
             background-color: var(--bg-color);
             margin-top: -50px;
         }
-        
+
         .hero::before {
             content: '';
             position: absolute;
@@ -445,7 +462,7 @@
             position: relative;
             z-index: 1;
         }
-        
+
         .hero .session-options {
             display: flex;
             justify-content: center;
@@ -466,7 +483,7 @@
             box-shadow: 0 4px 10px var(--shadow-light);
             border: 1px solid var(--border-color);
         }
-        
+
         .hero .session-card:hover {
             transform: translateY(-4px);
             border-color: var(--primary-gold);
@@ -478,7 +495,7 @@
         }
 
         .hero .session-card .icon {
-            font-size: 2rem; 
+            font-size: 2rem;
             color: var(--primary-text);
         }
 
@@ -487,7 +504,7 @@
             font-weight: 500;
             color: var(--primary-text);
         }
-        
+
         /* --- Why Choose Finacify Section --- */
         .why-choose {
             padding: var(--spacing-lg) 0;
@@ -560,13 +577,13 @@
             cursor: pointer;
             border: 1px solid var(--border-color);
         }
-        
+
         .advisor-card:hover {
             transform: translateY(-4px);
             border-color: var(--primary-gold);
             box-shadow: 0 6px 16px var(--shadow-medium);
         }
-        
+
         .advisor-card .badge {
             position: absolute;
             top: 0;
@@ -579,7 +596,7 @@
             border-top-right-radius: var(--border-radius);
             border-bottom-left-radius: 8px;
         }
-        
+
         .advisor-card .menu-dots {
             position: absolute;
             top: var(--spacing-sm);
@@ -636,7 +653,7 @@
             color: var(--secondary-text);
             margin-bottom: var(--spacing-xs);
         }
-        
+
         .advisor-card .stats .stat-item .icon-star {
             color: var(--primary-gold);
         }
@@ -756,7 +773,7 @@
             box-shadow: 0 4px 10px var(--shadow-light);
             border: 1px solid var(--border-color);
         }
-        
+
         .faq-item.active {
             border-color: var(--primary-gold);
             box-shadow: 0 6px 16px var(--shadow-medium);
@@ -910,7 +927,7 @@
         .popup-close:hover {
             color: var(--primary-gold);
         }
-        
+
         .advisor-details-popup .advisor-profile {
             display: flex;
             flex-direction: column;
@@ -918,6 +935,7 @@
             gap: var(--spacing-sm);
             margin-bottom: var(--spacing-md);
         }
+
         .advisor-details-popup .advisor-profile .profile-pic {
             width: 80px;
             height: 80px;
@@ -925,24 +943,29 @@
             background: var(--primary-gold);
             color: var(--card-bg);
         }
+
         .advisor-details-popup .advisor-info {
             text-align: center;
         }
+
         .advisor-details-popup .advisor-info h3 {
             font-size: 1.5rem;
             font-weight: 600;
             color: var(--primary-text);
         }
+
         .advisor-details-popup .advisor-info p {
             color: var(--secondary-text);
             font-size: 1rem;
         }
+
         .advisor-details-popup .bio {
             text-align: left;
             margin-top: var(--spacing-sm);
             font-size: 0.9rem;
             color: var(--secondary-text);
         }
+
         .advisor-details-popup .action-btn {
             display: block;
             width: 100%;
@@ -954,6 +977,7 @@
             border-radius: 5px;
             cursor: pointer;
         }
+
         .advisor-details-popup .action-btn:hover {
             background-color: #d1b48b;
         }
@@ -964,20 +988,24 @@
             gap: var(--spacing-sm);
             text-align: center;
         }
+
         .session-details-popup .session-content .icon {
             font-size: 3rem;
             color: var(--primary-gold);
         }
+
         .session-details-popup .session-content h3 {
             font-size: 1.5rem;
             font-weight: 600;
             color: var(--primary-text);
         }
+
         .session-details-popup .session-content p {
             color: var(--secondary-text);
             font-size: 1rem;
             margin-bottom: var(--spacing-sm);
         }
+
         .session-details-popup .action-btn {
             display: block;
             width: 100%;
@@ -989,6 +1017,7 @@
             cursor: pointer;
             box-shadow: 0 2px 4px var(--shadow-light);
         }
+
         .session-details-popup .action-btn:hover {
             background-color: #d1b48b;
         }
@@ -1000,7 +1029,7 @@
             right: var(--spacing-md);
             z-index: 999;
         }
-        
+
         .live-chat-button {
             width: 60px;
             height: 60px;
@@ -1012,6 +1041,7 @@
             align-items: center;
             cursor: pointer;
         }
+
         .live-chat-button:hover {
             transform: scale(1.05);
             background-color: var(--accent-offwhite);
@@ -1021,6 +1051,7 @@
             font-size: 2rem;
             color: var(--card-bg);
         }
+
         .live-chat-button:hover .material-symbols-outlined {
             color: var(--primary-gold);
         }
@@ -1043,7 +1074,7 @@
             pointer-events: auto;
             transform: translateY(0);
         }
-        
+
         .live-chat-popup-content {
             background-color: var(--card-bg);
             border-radius: var(--border-radius);
@@ -1088,11 +1119,11 @@
             scrollbar-width: thin;
             scrollbar-color: var(--primary-gold) var(--card-bg);
         }
-        
+
         .chat-body::-webkit-scrollbar {
             width: 8px;
         }
-        
+
         .chat-body::-webkit-scrollbar-track {
             background: var(--card-bg);
         }
@@ -1171,7 +1202,7 @@
             -webkit-font-feature-settings: 'liga';
             -webkit-font-smoothing: antialiased;
         }
-        
+
         .overlay {
             position: fixed;
             top: 0;
@@ -1195,18 +1226,18 @@
             h2 {
                 font-size: 2rem;
             }
-            
+
             .header {
                 flex-wrap: wrap;
                 padding: var(--spacing-sm);
             }
-            
+
             .header-left {
                 order: 1;
                 width: 100%;
                 justify-content: space-between;
             }
-            
+
             .header-right {
                 display: none;
             }
@@ -1217,15 +1248,15 @@
                 flex-basis: 100%;
                 max-width: none;
             }
-            
+
             .hero h1 {
                 font-size: 2.5rem;
             }
-            
+
             .hero p {
                 font-size: 1rem;
             }
-            
+
             .hero .cta-group {
                 flex-direction: column;
                 gap: var(--spacing-sm);
@@ -1240,6 +1271,7 @@
         }
     </style>
 </head>
+
 <body>
     <div class="overlay" onclick="closeAll()"></div>
 
@@ -1252,7 +1284,8 @@
             <li><a href="#"><span class="material-symbols-outlined">home</span>Home</a></li>
             <li><a href="#trending-advisors"><span class="material-symbols-outlined">group</span>Advisors</a></li>
             <li><a href="#"><span class="material-symbols-outlined">payments</span>Pricing</a></li>
-            <li><a href="#faq-section"><span class="material-symbols-outlined">contact_support</span>Help Center</a></li>
+            <li><a href="#faq-section"><span class="material-symbols-outlined">contact_support</span>Help Center</a>
+            </li>
         </ul>
     </aside>
 
@@ -1274,7 +1307,8 @@
                 <span class="material-symbols-outlined">light_mode</span>
             </button>
             <div class="profile-container" style="position: relative;">
-                <span class="material-symbols-outlined icon-btn user-icon" onclick="toggleProfileDropdown()">person</span>
+                <span class="material-symbols-outlined icon-btn user-icon"
+                    onclick="toggleProfileDropdown()">person</span>
                 <div id="profileDropdown" class="profile-dropdown">
                     <div class="profile-header">
                         <div class="profile-pic">A</div>
@@ -1282,7 +1316,8 @@
                         <p>john.doe@example.com</p>
                     </div>
                     <ul class="dropdown-items">
-                        <li><a href="#"><span class="material-symbols-outlined">account_balance_wallet</span>Credits: 15</a></li>
+                        <li><a href="#"><span class="material-symbols-outlined">account_balance_wallet</span>Credits:
+                                15</a></li>
                         <li><a href="#"><span class="material-symbols-outlined">history</span>Session History</a></li>
                         <li><a href="#"><span class="material-symbols-outlined">settings</span>Settings</a></li>
                     </ul>
@@ -1296,20 +1331,23 @@
         <section class="hero">
             <div class="container">
                 <h1>Your Financial Journey Starts Here.</h1>
-                <p class="sub-headline">Book a session with a verified expert and get personalized advice to reach your goals.</p>
-                <div class="session-options">
+                <p class="sub-headline">Book a session with a verified expert and get personalized advice to reach your
+                    goals.</p>
+                <div class="session-options"><a href="chatCards.html">
                     <div class="session-card" data-session="chat">
-                        <span class="material-symbols-outlined icon">chat</span>
-                        <div class="text">Chat Session</div>
-                    </div>
+                            <span class="material-symbols-outlined icon">chat</span>
+                            <div class="text">Chat Session</div>
+                    </div></a>
+                    <a href="voiceSession.html">
                     <div class="session-card" data-session="voice">
                         <span class="material-symbols-outlined icon">call</span>
                         <div class="text">Voice Session</div>
-                    </div>
+                    </div></a>
+                    <a href="videoSession.html">
                     <div class="session-card" data-session="video">
                         <span class="material-symbols-outlined icon">videocam</span>
                         <div class="text">Video Session</div>
-                    </div>
+                    </div></a>
                 </div>
             </div>
         </section>
@@ -1341,7 +1379,9 @@
             <div class="container">
                 <h2>Trending Financial Advisors</h2>
                 <div class="advisor-grid">
-                    <div class="advisor-card" data-advisor-name="Priya Sharma" data-advisor-specialty="Tax Consultant" data-advisor-exp="5+ years experience" data-advisor-bio="Priya is a certified tax consultant with a passion for helping individuals and small businesses navigate the complexities of tax laws. She has successfully filed over 1000 tax returns and is known for her meticulous attention to detail and clear explanations.">
+                    <div class="advisor-card" data-advisor-name="Priya Sharma" data-advisor-specialty="Tax Consultant"
+                        data-advisor-exp="5+ years experience"
+                        data-advisor-bio="Priya is a certified tax consultant with a passion for helping individuals and small businesses navigate the complexities of tax laws. She has successfully filed over 1000 tax returns and is known for her meticulous attention to detail and clear explanations.">
                         <span class="badge">Top Advisor</span>
                         <span class="material-symbols-outlined menu-dots">more_vert</span>
                         <div class="advisor-header">
@@ -1372,7 +1412,9 @@
                         </div>
                     </div>
 
-                    <div class="advisor-card" data-advisor-name="Arjun Desai" data-advisor-specialty="Investment Strategist" data-advisor-exp="10+ years experience" data-advisor-bio="Arjun is a seasoned investment strategist with a proven track record of creating high-yield portfolios. He specializes in market analysis, stock selection, and long-term wealth creation. His clients praise his analytical approach and consistent results.">
+                    <div class="advisor-card" data-advisor-name="Arjun Desai"
+                        data-advisor-specialty="Investment Strategist" data-advisor-exp="10+ years experience"
+                        data-advisor-bio="Arjun is a seasoned investment strategist with a proven track record of creating high-yield portfolios. He specializes in market analysis, stock selection, and long-term wealth creation. His clients praise his analytical approach and consistent results.">
                         <span class="badge">Top Advisor</span>
                         <span class="material-symbols-outlined menu-dots">more_vert</span>
                         <div class="advisor-header">
@@ -1403,7 +1445,9 @@
                         </div>
                     </div>
 
-                    <div class="advisor-card" data-advisor-name="Shreya Kapoor" data-advisor-specialty="Debt & Loans Advisor" data-advisor-exp="7+ years experience" data-advisor-bio="Shreya is an expert in debt management and loan consultation. She assists clients in creating strategies to reduce debt, improve credit scores, and secure favorable loan terms. His practical advice has helped countless individuals achieve financial freedom.">
+                    <div class="advisor-card" data-advisor-name="Shreya Kapoor"
+                        data-advisor-specialty="Debt & Loans Advisor" data-advisor-exp="7+ years experience"
+                        data-advisor-bio="Shreya is an expert in debt management and loan consultation. She assists clients in creating strategies to reduce debt, improve credit scores, and secure favorable loan terms. His practical advice has helped countless individuals achieve financial freedom.">
                         <span class="badge">Top Advisor</span>
                         <span class="material-symbols-outlined menu-dots">more_vert</span>
                         <div class="advisor-header">
@@ -1443,7 +1487,8 @@
                 <div class="testimonial-grid">
                     <div class="testimonial-card">
                         <div class="rating">★★★★★</div>
-                        <p class="text">"Finacify helped me understand my tax filings easily. The advisor was knowledgeable and patient. Highly recommend!"</p>
+                        <p class="text">"Finacify helped me understand my tax filings easily. The advisor was
+                            knowledgeable and patient. Highly recommend!"</p>
                         <div class="author">
                             <div class="profile-pic"></div>
                             <span class="name">Rajat V.</span>
@@ -1451,7 +1496,8 @@
                     </div>
                     <div class="testimonial-card">
                         <div class="rating">★★★★★</div>
-                        <p class="text">"I got a comprehensive investment plan within a single video session. The expert was top-notch."</p>
+                        <p class="text">"I got a comprehensive investment plan within a single video session. The expert
+                            was top-notch."</p>
                         <div class="author">
                             <div class="profile-pic"></div>
                             <span class="name">Anjali K.</span>
@@ -1459,7 +1505,8 @@
                     </div>
                     <div class="testimonial-card">
                         <div class="rating">★★★★★</div>
-                        <p class="text">"The emergency helpline was a lifesaver. I received immediate guidance on a debt issue."</p>
+                        <p class="text">"The emergency helpline was a lifesaver. I received immediate guidance on a debt
+                            issue."</p>
                         <div class="author">
                             <div class="profile-pic"></div>
                             <span class="name">Kiran M.</span>
@@ -1467,7 +1514,8 @@
                     </div>
                     <div class="testimonial-card">
                         <div class="rating">★★★★★</div>
-                        <p class="text">"The platform is incredibly user-friendly and the advisors are truly experts in their field. I'm now much more confident about my finances."</p>
+                        <p class="text">"The platform is incredibly user-friendly and the advisors are truly experts in
+                            their field. I'm now much more confident about my finances."</p>
                         <div class="author">
                             <div class="profile-pic"></div>
                             <span class="name">Preeti S.</span>
@@ -1476,7 +1524,7 @@
                 </div>
             </div>
         </section>
-        
+
         <section id="faq-section" class="faq-section">
             <div class="container">
                 <h2>Frequently Asked Questions</h2>
@@ -1487,7 +1535,9 @@
                             <span class="material-symbols-outlined toggle-icon">expand_more</span>
                         </div>
                         <div class="faq-answer">
-                            <p>Finacify is an on-demand financial consultation platform where you can instantly connect with verified financial experts via chat, voice, or video for personalized advice on tax, investments, loans, and more.</p>
+                            <p>Finacify is an on-demand financial consultation platform where you can instantly connect
+                                with verified financial experts via chat, voice, or video for personalized advice on
+                                tax, investments, loans, and more.</p>
                         </div>
                     </div>
                     <div class="faq-item">
@@ -1496,7 +1546,9 @@
                             <span class="material-symbols-outlined toggle-icon">expand_more</span>
                         </div>
                         <div class="faq-answer">
-                            <p>You purchase credits to book sessions with advisors. Each consultation deducts a set number of credits from your account. First-time users receive free credits to try the service.</p>
+                            <p>You purchase credits to book sessions with advisors. Each consultation deducts a set
+                                number of credits from your account. First-time users receive free credits to try the
+                                service.</p>
                         </div>
                     </div>
                     <div class="faq-item">
@@ -1505,7 +1557,8 @@
                             <span class="material-symbols-outlined toggle-icon">expand_more</span>
                         </div>
                         <div class="faq-answer">
-                            <p>All experts undergo strict KYC verification and must submit valid licenses, certifications, and experience proofs before joining the platform.</p>
+                            <p>All experts undergo strict KYC verification and must submit valid licenses,
+                                certifications, and experience proofs before joining the platform.</p>
                         </div>
                     </div>
                     <div class="faq-item">
@@ -1514,7 +1567,8 @@
                             <span class="material-symbols-outlined toggle-icon">expand_more</span>
                         </div>
                         <div class="faq-answer">
-                            <p>You can seek guidance on tax filing, budgeting, investment planning, loans, debts, business strategy, startup consultation, and more.</p>
+                            <p>You can seek guidance on tax filing, budgeting, investment planning, loans, debts,
+                                business strategy, startup consultation, and more.</p>
                         </div>
                     </div>
                     <div class="faq-item">
@@ -1523,7 +1577,8 @@
                             <span class="material-symbols-outlined toggle-icon">expand_more</span>
                         </div>
                         <div class="faq-answer">
-                            <p>Yes. We use bank-level encryption, secure payment gateways, and Firebase authentication to protect your personal and financial information.</p>
+                            <p>Yes. We use bank-level encryption, secure payment gateways, and Firebase authentication
+                                to protect your personal and financial information.</p>
                         </div>
                     </div>
                     <div class="faq-item">
@@ -1532,7 +1587,8 @@
                             <span class="material-symbols-outlined toggle-icon">expand_more</span>
                         </div>
                         <div class="faq-answer">
-                            <p>Yes. You can choose our voice-only anonymous consultation feature to discuss sensitive matters privately without revealing your identity.</p>
+                            <p>Yes. You can choose our voice-only anonymous consultation feature to discuss sensitive
+                                matters privately without revealing your identity.</p>
                         </div>
                     </div>
                     <div class="faq-item">
@@ -1541,7 +1597,8 @@
                             <span class="material-symbols-outlined toggle-icon">expand_more</span>
                         </div>
                         <div class="faq-answer">
-                            <p>Payments can be made through UPI, debit/credit cards, or net banking. Razorpay powers our secure payment processing.</p>
+                            <p>Payments can be made through UPI, debit/credit cards, or net banking. Razorpay powers our
+                                secure payment processing.</p>
                         </div>
                     </div>
                     <div class="faq-item">
@@ -1550,7 +1607,8 @@
                             <span class="material-symbols-outlined toggle-icon">expand_more</span>
                         </div>
                         <div class="faq-answer">
-                            <p>Yes. Advisors list the languages they speak, and you can filter experts by your preferred language before booking.</p>
+                            <p>Yes. Advisors list the languages they speak, and you can filter experts by your preferred
+                                language before booking.</p>
                         </div>
                     </div>
                     <div class="faq-item">
@@ -1559,7 +1617,8 @@
                             <span class="material-symbols-outlined toggle-icon">expand_more</span>
                         </div>
                         <div class="faq-answer">
-                            <p>You can rate and review advisors after each session. If an issue arises, our support team will review your case for a possible credit refund.</p>
+                            <p>You can rate and review advisors after each session. If an issue arises, our support team
+                                will review your case for a possible credit refund.</p>
                         </div>
                     </div>
                     <div class="faq-item">
@@ -1568,7 +1627,8 @@
                             <span class="material-symbols-outlined toggle-icon">expand_more</span>
                         </div>
                         <div class="faq-answer">
-                            <p>Yes. Our Emergency Financial Helpline connects you to an available advisor for urgent debt, fraud, or financial crisis guidance.</p>
+                            <p>Yes. Our Emergency Financial Helpline connects you to an available advisor for urgent
+                                debt, fraud, or financial crisis guidance.</p>
                         </div>
                     </div>
                     <div class="faq-item">
@@ -1577,7 +1637,8 @@
                             <span class="material-symbols-outlined toggle-icon">expand_more</span>
                         </div>
                         <div class="faq-answer">
-                            <p>For your security and record-keeping, all sessions are securely recorded and can be accessed from your dashboard.</p>
+                            <p>For your security and record-keeping, all sessions are securely recorded and can be
+                                accessed from your dashboard.</p>
                         </div>
                     </div>
                     <div class="faq-item">
@@ -1586,7 +1647,8 @@
                             <span class="material-symbols-outlined toggle-icon">expand_more</span>
                         </div>
                         <div class="faq-answer">
-                            <p>You can easily buy credit packages from the "Top Up Credits" section in your profile. Payments are securely processed through Razorpay.</p>
+                            <p>You can easily buy credit packages from the "Top Up Credits" section in your profile.
+                                Payments are securely processed through Razorpay.</p>
                         </div>
                     </div>
                 </div>
@@ -1626,7 +1688,7 @@
                 <div class="footer-section">
                     <h3>Contact Us</h3>
                     <p>Email: support@finacify.com</p>
-                    <p>Phone: +91-9763684771</p>
+                    <p>Phone: +91-9876543210</p>
                 </div>
             </div>
             <div class="footer-bottom">
@@ -1668,7 +1730,7 @@
             </div>
         </div>
     </div>
-    
+
     <div id="liveChatPopup" class="live-chat-popup-overlay">
         <div class="live-chat-popup-content">
             <div class="chat-header">
@@ -1689,230 +1751,230 @@
 
     <script>
         // --- Popups and Menus ---
-const sidebarMenu = document.getElementById('sidebarMenu');
-const hamburgerIcon = document.querySelector('.hamburger-icon');
-const profileDropdown = document.getElementById('profileDropdown');
-const overlay = document.querySelector('.overlay');
-const liveChatPopup = document.getElementById('liveChatPopup');
-const body = document.body;
-const themeSwitcher = document.getElementById('theme-switcher');
+        const sidebarMenu = document.getElementById('sidebarMenu');
+        const hamburgerIcon = document.querySelector('.hamburger-icon');
+        const profileDropdown = document.getElementById('profileDropdown');
+        // const overlay = document.querySelector('.overlay');
+        const liveChatPopup = document.getElementById('liveChatPopup');
+        const body = document.body;
+        const themeSwitcher = document.getElementById('theme-switcher');
 
-// Live Chat Elements
-const chatBody = document.getElementById('chatBody');
-const chatInput = document.getElementById('chatInput');
-const sendBtn = document.getElementById('sendBtn');
+        // Live Chat Elements
+        const chatBody = document.getElementById('chatBody');
+        const chatInput = document.getElementById('chatInput');
+        const sendBtn = document.getElementById('sendBtn');
 
-function closeAll() {
-    sidebarMenu.classList.remove('active');
-    hamburgerIcon.classList.remove('active');
-    profileDropdown.classList.remove('active');
-    closePopups();
-    liveChatPopup.classList.remove('active');
-    overlay.classList.remove('active');
-    document.body.style.overflow = 'auto'; // Reset overflow
-}
+        function closeAll() {
+            sidebarMenu.classList.remove('active');
+            hamburgerIcon.classList.remove('active');
+            profileDropdown.classList.remove('active');
+            closePopups();
+            liveChatPopup.classList.remove('active');
+            overlay.classList.remove('active');
+            document.body.style.overflow = 'auto'; // Reset overflow
+        }
 
-function toggleSideMenu() {
-    const isActive = sidebarMenu.classList.contains('active');
-    closeAll();
-    if (!isActive) {
-        sidebarMenu.classList.add('active');
-        hamburgerIcon.classList.add('active');
-        overlay.classList.add('active');
-        document.body.style.overflow = 'hidden';
-    }
-}
+        function toggleSideMenu() {
+            const isActive = sidebarMenu.classList.contains('active');
+            closeAll();
+            if (!isActive) {
+                sidebarMenu.classList.add('active');
+                hamburgerIcon.classList.add('active');
+                overlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+        }
 
-function toggleProfileDropdown() {
-    const isActive = profileDropdown.classList.contains('active');
-    closeAll();
-    if (!isActive) {
-        profileDropdown.classList.add('active');
-    }
-}
+        function toggleProfileDropdown() {
+            const isActive = profileDropdown.classList.contains('active');
+            closeAll();
+            if (!isActive) {
+                profileDropdown.classList.add('active');
+            }
+        }
 
-function closePopups() {
-    const allPopups = document.querySelectorAll('.popup-overlay, .live-chat-popup-overlay');
-    allPopups.forEach(p => p.classList.remove('active'));
-    document.body.style.overflow = 'auto'; // Ensure body overflow is reset when popups close
-}
+        function closePopups() {
+            const allPopups = document.querySelectorAll('.popup-overlay, .live-chat-popup-overlay');
+            allPopups.forEach(p => p.classList.remove('active'));
+            document.body.style.overflow = 'auto'; // Ensure body overflow is reset when popups close
+        }
 
-function openPopup(popupId) {
-    closeAll(); // Close everything before opening a new popup
-    const popup = document.getElementById(popupId);
-    if (popup) {
-        popup.classList.add('active');
-        // A single overlay handles all popups
-        overlay.classList.add('active'); 
-        document.body.style.overflow = 'hidden';
-    }
-}
+        function openPopup(popupId) {
+            closeAll(); // Close everything before opening a new popup
+            const popup = document.getElementById(popupId);
+            if (popup) {
+                popup.classList.add('active');
+                // A single overlay handles all popups
+                overlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+        }
 
-function toggleLiveChatPopup() {
-    const isActive = liveChatPopup.classList.contains('active');
-    closeAll();
-    if (!isActive) {
-        liveChatPopup.classList.add('active');
-        chatInput.focus(); // Focus on the input field when chat opens
-    }
-}
+        function toggleLiveChatPopup() {
+            const isActive = liveChatPopup.classList.contains('active');
+            closeAll();
+            if (!isActive) {
+                liveChatPopup.classList.add('active');
+                chatInput.focus(); // Focus on the input field when chat opens
+            }
+        }
 
-function toggleTheme() {
-    body.classList.toggle('day-theme');
-    const isDayTheme = body.classList.contains('day-theme');
-    themeSwitcher.querySelector('span').textContent = isDayTheme ? 'dark_mode' : 'light_mode';
-    localStorage.setItem('theme', isDayTheme ? 'day' : 'night');
-}
+        function toggleTheme() {
+            body.classList.toggle('day-theme');
+            const isDayTheme = body.classList.contains('day-theme');
+            themeSwitcher.querySelector('span').textContent = isDayTheme ? 'dark_mode' : 'light_mode';
+            localStorage.setItem('theme', isDayTheme ? 'day' : 'night');
+        }
 
-// --- Live Chat Functionality ---
-function createMessageElement(message, type) {
-    const messageEl = document.createElement('div');
-    messageEl.classList.add('message', type);
-    messageEl.textContent = message;
-    return messageEl;
-}
+        // --- Live Chat Functionality ---
+        function createMessageElement(message, type) {
+            const messageEl = document.createElement('div');
+            messageEl.classList.add('message', type);
+            messageEl.textContent = message;
+            return messageEl;
+        }
 
-function scrollToBottom() {
-    chatBody.scrollTop = chatBody.scrollHeight;
-}
+        function scrollToBottom() {
+            chatBody.scrollTop = chatBody.scrollHeight;
+        }
 
-function getBotResponse(userMessage) {
-    const lowerCaseMessage = userMessage.toLowerCase();
-    if (lowerCaseMessage.includes('hello') || lowerCaseMessage.includes('hi')) {
-        return "Hi there! How can I assist you with your financial questions?";
-    } else if (lowerCaseMessage.includes('advisor') || lowerCaseMessage.includes('expert')) {
-        return "You can find our list of verified financial advisors under the 'Advisors' section on our homepage. What kind of expert are you looking for?";
-    } else if (lowerCaseMessage.includes('pricing') || lowerCaseMessage.includes('cost')) {
-        return "Pricing details are available on the 'Pricing' page. The cost of a session depends on the advisor and the session type (chat, voice, or video).";
-    } else if (lowerCaseMessage.includes('tax') || lowerCaseMessage.includes('income')) {
-        return "We have several tax consultants who can help you with tax filing, planning, and other related queries. You can find them under the 'Advisors' section.";
-    } else if (lowerCaseMessage.includes('thanks') || lowerCaseMessage.includes('thank you')) {
-        return "You're welcome! Let me know if you need anything else.";
-    } else if (lowerCaseMessage.includes('credit')) {
-        return "Our credit system lets you pre-purchase sessions. You can find more details and top up your credits in your profile dropdown menu.";
-    } else if (lowerCaseMessage.includes('bye') || lowerCaseMessage.includes('goodbye')) {
-        return "Goodbye! Feel free to reach out anytime you have more questions.";
-    } else {
-        return "I'm sorry, I don't understand that. You can either book a session with an expert or ask me about our services like pricing or finding an advisor.";
-    }
-}
+        function getBotResponse(userMessage) {
+            const lowerCaseMessage = userMessage.toLowerCase();
+            if (lowerCaseMessage.includes('hello') || lowerCaseMessage.includes('hi')) {
+                return "Hi there! How can I assist you with your financial questions?";
+            } else if (lowerCaseMessage.includes('advisor') || lowerCaseMessage.includes('expert')) {
+                return "You can find our list of verified financial advisors under the 'Advisors' section on our homepage. What kind of expert are you looking for?";
+            } else if (lowerCaseMessage.includes('pricing') || lowerCaseMessage.includes('cost')) {
+                return "Pricing details are available on the 'Pricing' page. The cost of a session depends on the advisor and the session type (chat, voice, or video).";
+            } else if (lowerCaseMessage.includes('tax') || lowerCaseMessage.includes('income')) {
+                return "We have several tax consultants who can help you with tax filing, planning, and other related queries. You can find them under the 'Advisors' section.";
+            } else if (lowerCaseMessage.includes('thanks') || lowerCaseMessage.includes('thank you')) {
+                return "You're welcome! Let me know if you need anything else.";
+            } else if (lowerCaseMessage.includes('credit')) {
+                return "Our credit system lets you pre-purchase sessions. You can find more details and top up your credits in your profile dropdown menu.";
+            } else if (lowerCaseMessage.includes('bye') || lowerCaseMessage.includes('goodbye')) {
+                return "Goodbye! Feel free to reach out anytime you have more questions.";
+            } else {
+                return "I'm sorry, I don't understand that. You can either book a session with an expert or ask me about our services like pricing or finding an advisor.";
+            }
+        }
 
-function sendMessage() {
-    const message = chatInput.value.trim();
-    if (message === '') return;
+        function sendMessage() {
+            const message = chatInput.value.trim();
+            if (message === '') return;
 
-    // Append user's message
-    chatBody.appendChild(createMessageElement(message, 'user'));
-    chatInput.value = '';
-    scrollToBottom();
+            // Append user's message
+            chatBody.appendChild(createMessageElement(message, 'user'));
+            chatInput.value = '';
+            scrollToBottom();
 
-    // Simulate bot response
-    setTimeout(() => {
-        const botResponse = getBotResponse(message);
-        chatBody.appendChild(createMessageElement(botResponse, 'bot'));
-        scrollToBottom();
-    }, 500); // 500ms delay for a more natural feel
-}
+            // Simulate bot response
+            setTimeout(() => {
+                const botResponse = getBotResponse(message);
+                chatBody.appendChild(createMessageElement(botResponse, 'bot'));
+                scrollToBottom();
+            }, 500); // 500ms delay for a more natural feel
+        }
 
-// --- Event Listeners ---
-document.addEventListener('DOMContentLoaded', () => {
-    // Load theme from localStorage
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme === 'day') {
-        body.classList.add('day-theme');
-        themeSwitcher.querySelector('span').textContent = 'dark_mode';
-    } else {
-        body.classList.remove('day-theme');
-        themeSwitcher.querySelector('span').textContent = 'light_mode';
-    }
+        // --- Event Listeners ---
+        document.addEventListener('DOMContentLoaded', () => {
+            // Load theme from localStorage
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'day') {
+                body.classList.add('day-theme');
+                themeSwitcher.querySelector('span').textContent = 'dark_mode';
+            } else {
+                body.classList.remove('day-theme');
+                themeSwitcher.querySelector('span').textContent = 'light_mode';
+            }
 
-    themeSwitcher.addEventListener('click', toggleTheme);
+            themeSwitcher.addEventListener('click', toggleTheme);
 
-    // FAQ Accordion
-    const faqItems = document.querySelectorAll('.faq-item');
-    faqItems.forEach(item => {
-        const question = item.querySelector('.faq-question');
-        question.addEventListener('click', () => {
-            faqItems.forEach(otherItem => {
-                if (otherItem !== item) {
-                    otherItem.classList.remove('active');
+            // FAQ Accordion
+            const faqItems = document.querySelectorAll('.faq-item');
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question');
+                question.addEventListener('click', () => {
+                    faqItems.forEach(otherItem => {
+                        if (otherItem !== item) {
+                            otherItem.classList.remove('active');
+                        }
+                    });
+                    item.classList.toggle('active');
+                });
+            });
+
+            // Advisor Details Popup
+            const advisorCards = document.querySelectorAll('.advisor-card');
+            const advisorNameEl = document.getElementById('advisor-name');
+            const advisorSpecialtyEl = document.getElementById('advisor-specialty');
+            const advisorExpEl = document.getElementById('advisor-exp');
+            const advisorBioEl = document.getElementById('advisor-bio');
+            const advisorPicEl = document.getElementById('advisor-pic');
+            const bookNowBtns = document.querySelectorAll('.book-now-btn');
+
+            bookNowBtns.forEach(button => {
+                button.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const card = e.target.closest('.advisor-card');
+                    const advisorData = {
+                        name: card.dataset.advisorName,
+                        specialty: card.dataset.advisorSpecialty,
+                        exp: card.dataset.advisorExp,
+                        bio: card.dataset.advisorBio
+                    };
+                    advisorNameEl.textContent = advisorData.name;
+                    advisorSpecialtyEl.textContent = advisorData.specialty;
+                    advisorExpEl.textContent = advisorData.exp;
+                    advisorBioEl.textContent = advisorData.bio;
+                    advisorPicEl.textContent = advisorData.name.charAt(0);
+                    openPopup('advisorDetailsPopup');
+                });
+            });
+
+            // Session Details Popup
+            const sessionCards = document.querySelectorAll('.session-card');
+            const sessionTitleEl = document.getElementById('session-title');
+            const sessionDescriptionEl = document.getElementById('session-description');
+            const sessionIconEl = document.getElementById('session-icon');
+
+            const sessionDescriptions = {
+                chat: {
+                    title: 'Chat Session',
+                    icon: 'chat',
+                    description: 'A text-based consultation perfect for quick questions and ongoing discussions. Get expert advice without the need for a call or video.',
+                },
+                voice: {
+                    title: 'Voice Session',
+                    icon: 'call',
+                    description: 'A one-on-one audio consultation for in-depth conversations about your financial goals and concerns. Schedule a call with your chosen expert.',
+                },
+                video: {
+                    title: 'Video Session',
+                    icon: 'videocam',
+                    description: 'The most comprehensive option. A face-to-face video consultation to discuss complex financial matters and receive detailed feedback.'
+                }
+            };
+
+            sessionCards.forEach(card => {
+                card.addEventListener('click', (e) => {
+                    const sessionType = card.dataset.session;
+                    const sessionInfo = sessionDescriptions[sessionType];
+                    sessionTitleEl.textContent = sessionInfo.title;
+                    sessionDescriptionEl.textContent = sessionInfo.description;
+                    sessionIconEl.textContent = sessionInfo.icon;
+                    openPopup('sessionDetailsPopup');
+                });
+            });
+
+            // Live Chat event listeners
+            sendBtn.addEventListener('click', sendMessage);
+            chatInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    sendMessage();
                 }
             });
-            item.classList.toggle('active');
         });
-    });
-
-    // Advisor Details Popup
-    const advisorCards = document.querySelectorAll('.advisor-card');
-    const advisorNameEl = document.getElementById('advisor-name');
-    const advisorSpecialtyEl = document.getElementById('advisor-specialty');
-    const advisorExpEl = document.getElementById('advisor-exp');
-    const advisorBioEl = document.getElementById('advisor-bio');
-    const advisorPicEl = document.getElementById('advisor-pic');
-    const bookNowBtns = document.querySelectorAll('.book-now-btn');
-
-    bookNowBtns.forEach(button => {
-        button.addEventListener('click', (e) => {
-            e.stopPropagation();
-            const card = e.target.closest('.advisor-card');
-            const advisorData = {
-                name: card.dataset.advisorName,
-                specialty: card.dataset.advisorSpecialty,
-                exp: card.dataset.advisorExp,
-                bio: card.dataset.advisorBio
-            };
-            advisorNameEl.textContent = advisorData.name;
-            advisorSpecialtyEl.textContent = advisorData.specialty;
-            advisorExpEl.textContent = advisorData.exp;
-            advisorBioEl.textContent = advisorData.bio;
-            advisorPicEl.textContent = advisorData.name.charAt(0);
-            openPopup('advisorDetailsPopup');
-        });
-    });
-
-    // Session Details Popup
-    const sessionCards = document.querySelectorAll('.session-card');
-    const sessionTitleEl = document.getElementById('session-title');
-    const sessionDescriptionEl = document.getElementById('session-description');
-    const sessionIconEl = document.getElementById('session-icon');
-
-    const sessionDescriptions = {
-        chat: {
-            title: 'Chat Session',
-            icon: 'chat',
-            description: 'A text-based consultation perfect for quick questions and ongoing discussions. Get expert advice without the need for a call or video.',
-        },
-        voice: {
-            title: 'Voice Session',
-            icon: 'call',
-            description: 'A one-on-one audio consultation for in-depth conversations about your financial goals and concerns. Schedule a call with your chosen expert.',
-        },
-        video: {
-            title: 'Video Session',
-            icon: 'videocam',
-            description: 'The most comprehensive option. A face-to-face video consultation to discuss complex financial matters and receive detailed feedback.'
-        }
-    };
-
-    sessionCards.forEach(card => {
-        card.addEventListener('click', (e) => {
-            const sessionType = card.dataset.session;
-            const sessionInfo = sessionDescriptions[sessionType];
-            sessionTitleEl.textContent = sessionInfo.title;
-            sessionDescriptionEl.textContent = sessionInfo.description;
-            sessionIconEl.textContent = sessionInfo.icon;
-            openPopup('sessionDetailsPopup');
-        });
-    });
-
-    // Live Chat event listeners
-    sendBtn.addEventListener('click', sendMessage);
-    chatInput.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') {
-            sendMessage();
-        }
-    });
-});
     </script>
 </body>
 
