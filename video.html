@@ -1,0 +1,1117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voice Session - Finacify</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+
+    <style>
+        /* Color & Spacing Variables (Night Theme - Default) */
+        :root {
+            --bg-color: #000000;
+            --card-bg: #121212;
+            --primary-text: #F8F8F8;
+            --secondary-text: #C0C0C0;
+            --primary-gold: #C5A880;
+            --border-color: #333333;
+            --shadow-light: rgba(255, 255, 255, 0.05);
+            --shadow-medium: rgba(255, 255, 255, 0.1);
+            --danger-color: #E53935;
+
+            /* Spacing Variables */
+            --spacing-xs: 8px;
+            --spacing-sm: 16px;
+            --spacing-md: 32px;
+            --spacing-lg: 64px;
+            --border-radius: 8px;
+            --main-header-height: 60px;
+        }
+        
+        /* Day Theme Variables */
+        body.day-theme {
+            --bg-color: #F8F8F8;
+            --card-bg: #FFFFFF;
+            --primary-text: #000000;
+            --secondary-text: #666666;
+            --border-color: #E0E0E0;
+            --shadow-light: rgba(0, 0, 0, 0.05);
+            --shadow-medium: rgba(0, 0, 0, 0.1);
+            --danger-color: #D32F2F;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            text-decoration: none;
+            transition: all 0.2s ease-in-out;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--primary-text);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden; 
+        }
+        
+        .main-container {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            padding-top: var(--main-header-height);
+        }
+
+        /* The navbar styling is identical to your previous code to maintain consistency. */
+        /* --- Header (Navbar) --- */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: var(--main-header-height);
+            padding: var(--spacing-sm) var(--spacing-md);
+            background-color: var(--card-bg);
+            border-bottom: 1px solid var(--border-color);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px var(--shadow-light);
+        }
+        
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+            position: relative;
+        }
+
+        .header .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-text);
+            margin-left: 0;
+        }
+
+        .header .logo-text {
+            color: var(--primary-gold);
+        }
+
+        .header .search-bar {
+            flex-grow: 1;
+            margin: 0 var(--spacing-md);
+            position: relative;
+            max-width: 500px;
+        }
+
+        .header .search-bar input {
+            width: 100%;
+            padding: 10px 20px;
+            background-color: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 50px;
+            color: var(--primary-text);
+            font-size: 1rem;
+            outline: none;
+            transition: box-shadow 0.3s;
+        }
+
+        .header .search-bar input:focus {
+            box-shadow: 0 0 0 2px var(--primary-gold);
+            background-color: var(--card-bg);
+        }
+
+        .header .search-bar input::placeholder {
+            color: var(--secondary-text);
+        }
+
+        .header .search-bar .search-icon {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--secondary-text);
+            cursor: pointer;
+        }
+
+        .header .icon-btn {
+            background-color: transparent;
+            border-radius: 50%;
+            padding: var(--spacing-xs);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5rem;
+            color: var(--primary-text);
+            cursor: pointer;
+            border: none;
+        }
+
+        .header .icon-btn:hover {
+            background-color: var(--bg-color);
+            color: var(--primary-gold);
+        }
+        
+        .hamburger-icon {
+            width: 30px;
+            height: 20px;
+            display: none; /* Hide on large screens */
+            flex-direction: column;
+            justify-content: space-between;
+            cursor: pointer;
+            position: relative;
+            z-index: 1001;
+            background: none;
+            border: none;
+            padding: 0;
+        }
+        
+        .hamburger-icon span {
+            display: block;
+            width: 100%;
+            height: 2px;
+            background-color: var(--primary-text);
+            border-radius: 2px;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+        
+        .hamburger-icon.active span:first-child {
+            transform: translateY(9px) rotate(45deg);
+        }
+        .hamburger-icon.active span:nth-child(2) {
+            opacity: 0;
+        }
+        .hamburger-icon.active span:last-child {
+            transform: translateY(-9px) rotate(-45deg);
+        }
+        
+        .profile-dropdown {
+            position: absolute;
+            top: calc(100% + var(--spacing-sm));
+            right: var(--spacing-sm);
+            width: 250px;
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: 0 4px 10px var(--shadow-medium);
+            padding: var(--spacing-sm);
+            z-index: 1010;
+            visibility: hidden;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+            border: 1px solid var(--border-color);
+        }
+        
+        .profile-dropdown.active {
+            visibility: visible;
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .profile-dropdown .profile-header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-bottom: var(--spacing-sm);
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .profile-dropdown .profile-header .profile-pic {
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary-gold);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5rem;
+            color: var(--card-bg);
+        }
+        
+        .profile-dropdown .profile-header h3 {
+            margin-top: var(--spacing-xs);
+            font-size: 1rem;
+            color: var(--primary-text);
+        }
+        
+        .profile-dropdown .profile-header p {
+            font-size: 0.9rem;
+            color: var(--secondary-text);
+        }
+        
+        .profile-dropdown .dropdown-items {
+            list-style: none;
+            padding: var(--spacing-sm) 0;
+        }
+        
+        .profile-dropdown .dropdown-items li a {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            padding: var(--spacing-xs) var(--spacing-sm);
+            border-radius: var(--border-radius);
+            color: var(--secondary-text);
+        }
+
+        .profile-dropdown .dropdown-items li a:hover {
+            background-color: var(--border-color);
+            color: var(--primary-gold);
+        }
+        
+        .profile-dropdown .logout-btn {
+            display: block;
+            width: 100%;
+            padding: var(--spacing-xs);
+            text-align: center;
+            background-color: var(--primary-gold);
+            color: var(--card-bg);
+            border-radius: 50px;
+            margin-top: var(--spacing-xs);
+        }
+        
+        .profile-dropdown .logout-btn:hover {
+            background-color: #d1b48b;
+            color: var(--card-bg);
+        }
+
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: -300px;
+            height: 100%;
+            width: 300px;
+            background-color: var(--card-bg);
+            border-right: 1px solid var(--border-color);
+            z-index: 1000;
+            padding-top: var(--main-header-height);
+            transition: left 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .mobile-menu.active {
+            left: 0;
+        }
+
+        .mobile-menu a {
+            display: flex;
+            align-items: center;
+            padding: var(--spacing-sm) var(--spacing-md);
+            border-bottom: 1px solid var(--border-color);
+            color: var(--primary-text);
+            gap: var(--spacing-sm);
+        }
+
+        .mobile-menu a:hover {
+            background-color: var(--border-color);
+            color: var(--primary-gold);
+        }
+
+        .mobile-menu a .material-symbols-outlined {
+            font-size: 1.3rem;
+        }
+
+        .mobile-menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            visibility: hidden;
+            opacity: 0;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .mobile-menu.active ~ .mobile-menu-overlay {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        /* Responsive Styles for Navbar */
+        @media (max-width: 768px) {
+            .header {
+                justify-content: space-between;
+                flex-wrap: nowrap;
+                padding: var(--spacing-sm);
+                height: auto;
+                align-items: flex-start;
+                flex-direction: column;
+            }
+            
+            .header-left {
+                width: 100%;
+                justify-content: space-between;
+                order: 1;
+            }
+            
+            .header-right {
+                display: none;
+            }
+
+            .header .search-bar {
+                margin: var(--spacing-sm) 0;
+                order: 2;
+                flex-basis: 100%;
+                max-width: 100%;
+            }
+
+            .hamburger-icon {
+                display: flex;
+            }
+        }
+        
+        /* --- Video Session UI Styles --- */
+        .video-session-wrapper {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            background-color: var(--bg-color);
+            position: relative;
+        }
+
+        .session-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--spacing-sm) var(--spacing-md);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: var(--primary-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 10;
+        }
+        
+        .session-header-left {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+
+        .session-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .session-status {
+            font-size: 0.9rem;
+            font-weight: 500;
+            padding: 4px 10px;
+            border-radius: 50px;
+        }
+        
+        .session-status.live {
+            background-color: #28a745;
+            color: white;
+        }
+        
+        .session-status.connecting {
+            background-color: #ffc107;
+            color: #212529;
+        }
+
+        .ai-supervising-badge {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+            font-size: 0.8rem;
+            background-color: var(--primary-gold);
+            color: var(--card-bg);
+            padding: 4px 10px;
+            border-radius: 50px;
+        }
+
+        .main-video-area {
+            flex-grow: 1;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #212529; /* Placeholder for video background */
+        }
+        
+        .video-feed {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+        }
+        
+        .advisor-video {
+            /* This will be the main video feed */
+            z-index: 1;
+        }
+
+        .user-video-pip {
+            position: absolute;
+            bottom: var(--spacing-md);
+            right: var(--spacing-md);
+            width: 200px;
+            height: 150px;
+            background-color: var(--card-bg);
+            border: 2px solid var(--primary-gold);
+            border-radius: var(--border-radius);
+            box-shadow: 0 4px 10px var(--shadow-medium);
+            overflow: hidden;
+            z-index: 5;
+            resize: both;
+            cursor: move;
+        }
+
+        .participant-info {
+            position: absolute;
+            bottom: var(--spacing-sm);
+            left: var(--spacing-sm);
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 8px 12px;
+            border-radius: var(--border-radius);
+            z-index: 2;
+        }
+
+        .participant-info h4 {
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .participant-info p {
+            font-size: 0.8rem;
+            color: var(--secondary-text);
+        }
+
+        .control-bar {
+            position: absolute;
+            bottom: var(--spacing-sm);
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: var(--spacing-sm);
+            padding: var(--spacing-sm);
+            background-color: var(--card-bg);
+            border-radius: 50px;
+            box-shadow: 0 4px 10px var(--shadow-medium);
+            z-index: 10;
+        }
+
+        .control-bar .control-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--bg-color);
+            color: var(--primary-text);
+            border: none;
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            width: 50px;
+            height: 50px;
+        }
+        
+        .control-bar .control-btn.active {
+            background-color: var(--primary-gold);
+            color: var(--card-bg);
+        }
+        
+        .control-bar .control-btn:hover {
+            background-color: var(--border-color);
+        }
+        
+        .control-bar .control-btn .material-symbols-outlined {
+            font-size: 1.5rem;
+        }
+
+        .control-bar .end-session-btn {
+            background-color: var(--danger-color);
+            color: white;
+            border-radius: 50px;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+            font-weight: 600;
+        }
+
+        .control-bar .end-session-btn:hover {
+            background-color: #d32f2f;
+        }
+        
+        .session-footer {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: var(--spacing-xs) var(--spacing-md);
+            background-color: rgba(0, 0, 0, 0.5);
+            font-size: 0.8rem;
+            color: var(--secondary-text);
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 10;
+        }
+        
+        .session-footer .network-quality {
+            display: flex;
+            align-items: center;
+            margin-left: var(--spacing-sm);
+        }
+
+        /* --- Overlays & Panels --- */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            visibility: hidden;
+            opacity: 0;
+            transition: opacity 0.3s, visibility 0.3s;
+        }
+        
+        .overlay.active {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .call-invite-modal {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: var(--spacing-md);
+            text-align: center;
+            max-width: 400px;
+            box-shadow: 0 8px 20px var(--shadow-medium);
+        }
+
+        .call-invite-modal .advisor-preview {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin-bottom: var(--spacing-sm);
+            background-color: var(--bg-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            margin: 0 auto var(--spacing-sm);
+        }
+
+        .call-invite-modal h3 {
+            font-size: 1.5rem;
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .call-invite-modal p {
+            color: var(--secondary-text);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .call-invite-modal .modal-actions {
+            display: flex;
+            justify-content: center;
+            gap: var(--spacing-sm);
+        }
+        
+        .modal-actions .btn {
+            padding: 10px 20px;
+            border-radius: 50px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .modal-actions .accept {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .modal-actions .decline {
+            background-color: var(--danger-color);
+            color: white;
+        }
+
+        .panel {
+            position: absolute;
+            top: var(--main-header-height);
+            height: calc(100% - var(--main-header-height));
+            width: 300px;
+            background-color: var(--card-bg);
+            box-shadow: 0 4px 10px var(--shadow-medium);
+            z-index: 20;
+            transition: transform 0.3s ease;
+        }
+
+        #participants-panel {
+            right: 0;
+            transform: translateX(100%);
+        }
+        
+        #participants-panel.active {
+            transform: translateX(0);
+        }
+
+        #notes-panel {
+            left: 0;
+            transform: translateX(-100%);
+        }
+        
+        #notes-panel.active {
+            transform: translateX(0);
+        }
+        
+        .panel-header {
+            padding: var(--spacing-sm);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .panel-header h4 {
+            margin: 0;
+        }
+
+        .panel-header .close-btn {
+            background: none;
+            border: none;
+            color: var(--secondary-text);
+            cursor: pointer;
+        }
+
+        .panel-content {
+            padding: var(--spacing-sm);
+            overflow-y: auto;
+            height: calc(100% - 50px);
+        }
+        
+        .participant-item {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .participant-item .profile-pic {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--primary-gold);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--card-bg);
+            font-weight: 600;
+        }
+
+        .transcript-content {
+            white-space: pre-wrap;
+            font-size: 0.9rem;
+            color: var(--secondary-text);
+        }
+        
+        /* Responsive Video Session */
+        @media (max-width: 768px) {
+            .control-bar {
+                flex-wrap: wrap;
+                width: 90%;
+                justify-content: center;
+                bottom: 60px;
+                gap: var(--spacing-xs);
+                border-radius: var(--border-radius);
+            }
+            .control-bar .control-btn, .control-bar .end-session-btn {
+                padding: 8px;
+                width: 45px;
+                height: 45px;
+                font-size: 0.8rem;
+            }
+            .end-session-btn span {
+                display: none;
+            }
+            .user-video-pip {
+                width: 120px;
+                height: 90px;
+            }
+            .panel {
+                width: 100%;
+                top: var(--main-header-height);
+                height: calc(100% - var(--main-header-height));
+                left: 0;
+            }
+            #participants-panel {
+                transform: translateX(100%);
+            }
+            #participants-panel.active {
+                transform: translateX(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <header class="header">
+            <div class="header-left">
+                <button id="hamburgerBtn" class="hamburger-icon" aria-label="Open Mobile Menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <div class="logo">Fina<span class="logo-text">cify</span></div>
+            </div>
+            <div class="search-bar">
+                <input type="text" placeholder="Search for advisors, topics...">
+                <span class="material-symbols-outlined search-icon">search</span>
+            </div>
+            <div class="header-right">
+                <button id="theme-switcher" class="icon-btn" aria-label="Toggle Theme">
+                    <span class="material-symbols-outlined">light_mode</span>
+                </button>
+                <div class="profile-container" style="position: relative;">
+                    <button id="profileBtn" class="icon-btn" aria-label="Profile">
+                        <span class="material-symbols-outlined user-icon">person</span>
+                    </button>
+                    <div id="profileDropdown" class="profile-dropdown">
+                        <div class="profile-header">
+                            <div class="profile-pic">P</div>
+                            <h3>Priya Sharma</h3>
+                            <p>priya@finacify.com</p>
+                        </div>
+                        <ul class="dropdown-items">
+                            <li><a href="#"><span class="material-symbols-outlined">account_circle</span> Profile</a></li>
+                            <li><a href="#"><span class="material-symbols-outlined">settings</span> Settings</a></li>
+                            <li><a href="#"><span class="material-symbols-outlined">help</span> Help & Support</a></li>
+                        </ul>
+                        <a href="#" class="logout-btn">Log Out</a>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div id="mobileMenu" class="mobile-menu">
+            <a href="index.html"><span class="material-symbols-outlined">home</span> Home</a>
+            <a href="advisors.html"><span class="material-symbols-outlined">person_search</span> Advisors</a>
+            <a href="#"><span class="material-symbols-outlined">article</span> Blog</a>
+            <a href="#"><span class="material-symbols-outlined">mail</span> Contact</a>
+        </div>
+        <div id="mobileMenuOverlay" class="mobile-menu-overlay"></div>
+
+        <div class="video-session-wrapper">
+            <div class="session-header">
+                <div class="session-header-left">
+                    <span id="sessionStatus" class="session-status connecting">Connecting…</span>
+                    <div class="ai-supervising-badge">
+                        <span class="material-symbols-outlined">robot</span>
+                        <span>AI Supervised</span>
+                    </div>
+                </div>
+                <div class="session-header-right">
+                    <div id="sessionTimer">00:00:00</div>
+                </div>
+            </div>
+
+            <div class="main-video-area">
+                <video id="advisorVideo" class="video-feed advisor-video" autoplay muted playsinline></video>
+                <div class="placeholder-video-text">
+                    <p id="advisorStatus">Waiting for Advisor...</p>
+                </div>
+
+                <div id="userVideoPip" class="user-video-pip">
+                    <video id="userVideo" class="video-feed" autoplay muted playsinline></video>
+                    <div class="placeholder-video-text">You</div>
+                </div>
+
+                <div class="participant-info">
+                    <h4>Advisor S.K.</h4>
+                    <p>Investment Planning</p>
+                </div>
+            </div>
+
+            <div class="control-bar">
+                <button id="micBtn" class="control-btn" aria-label="Toggle Microphone">
+                    <span class="material-symbols-outlined">mic</span>
+                </button>
+                <button id="cameraBtn" class="control-btn" aria-label="Toggle Camera">
+                    <span class="material-symbols-outlined">videocam</span>
+                </button>
+                <button id="shareBtn" class="control-btn" aria-label="Share Screen">
+                    <span class="material-symbols-outlined">screen_share</span>
+                </button>
+                <button id="chatBtn" class="control-btn" aria-label="Open Chat">
+                    <span class="material-symbols-outlined">chat</span>
+                </button>
+                <button id="raiseHandBtn" class="control-btn" aria-label="Raise Hand">
+                    <span class="material-symbols-outlined">back_hand</span>
+                </button>
+                <button id="participantsBtn" class="control-btn" aria-label="Show Participants">
+                    <span class="material-symbols-outlined">group</span>
+                </button>
+                <button id="notesBtn" class="control-btn" aria-label="Show AI Notes">
+                    <span class="material-symbols-outlined">notes</span>
+                </button>
+                <button id="endCallBtn" class="end-session-btn" aria-label="End Session">
+                    <span class="material-symbols-outlined">call_end</span>
+                    <span>End Session</span>
+                </button>
+            </div>
+
+            <div class="session-footer">
+                <p>This session may be recorded and AI-supervised for quality and insights.</p>
+                <div class="network-quality">
+                    <span class="material-symbols-outlined" id="networkIcon">signal_cellular_alt_2_bar</span>
+                    <span id="networkStatus">Fair</span>
+                </div>
+            </div>
+
+            <div id="callInviteOverlay" class="overlay">
+                <div class="call-invite-modal">
+                    <div class="advisor-preview">
+                        <img src="https://placehold.co/150x150/C5A880/000000?text=S.K." alt="Advisor S.K." style="width:100%; height:100%; object-fit: cover;">
+                    </div>
+                    <h3>Advisor S.K. is calling…</h3>
+                    <p>Investment Planning</p>
+                    <div class="modal-actions">
+                        <button class="btn accept">Accept</button>
+                        <button class="btn decline">Decline</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="participants-panel" class="panel">
+                <div class="panel-header">
+                    <h4>Participants</h4>
+                    <button class="close-btn" aria-label="Close Participants">
+                        <span class="material-symbols-outlined">close</span>
+                    </button>
+                </div>
+                <div class="panel-content">
+                    <div class="participant-item">
+                        <div class="profile-pic">P</div>
+                        <div>
+                            <div>Priya Sharma (You)</div>
+                            <small class="text-secondary">User</small>
+                        </div>
+                    </div>
+                    <div class="participant-item">
+                        <div class="profile-pic">S.K.</div>
+                        <div>
+                            <div>Advisor S.K.</div>
+                            <small class="text-secondary">Investment Planning</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="notes-panel" class="panel">
+                <div class="panel-header">
+                    <h4>AI Notes & Transcript</h4>
+                    <button class="close-btn" aria-label="Close Notes">
+                        <span class="material-symbols-outlined">close</span>
+                    </button>
+                </div>
+                <div class="panel-content">
+                    <div class="transcript-content">
+                        <p><strong>[00:01] Advisor:</strong> Hello Priya, thanks for joining today. We'll start with your investment portfolio.</p>
+                        <p><strong>[00:05] Priya:</strong> Great, I'm ready. My main goal is to optimize for long-term growth.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // Navbar functionality (copied from your original code)
+        const hamburgerBtn = document.getElementById('hamburgerBtn');
+        const profileBtn = document.getElementById('profileBtn');
+        const profileDropdown = document.getElementById('profileDropdown');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
+        const body = document.body;
+        const themeSwitcher = document.getElementById('theme-switcher');
+        
+        themeSwitcher.addEventListener('click', () => {
+            body.classList.toggle('day-theme');
+            const isDayTheme = body.classList.contains('day-theme');
+            themeSwitcher.querySelector('span').textContent = isDayTheme ? 'dark_mode' : 'light_mode';
+            localStorage.setItem('theme', isDayTheme ? 'day' : 'night');
+        });
+        
+        window.addEventListener('DOMContentLoaded', () => {
+            if (localStorage.getItem('theme') === 'day') {
+                body.classList.add('day-theme');
+                themeSwitcher.querySelector('span').textContent = 'dark_mode';
+            }
+        });
+        
+        hamburgerBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+            hamburgerBtn.classList.toggle('active');
+            mobileMenuOverlay.classList.toggle('active');
+        });
+
+        mobileMenuOverlay.addEventListener('click', () => {
+            mobileMenu.classList.remove('active');
+            hamburgerBtn.classList.remove('active');
+            mobileMenuOverlay.classList.remove('active');
+        });
+        
+        profileBtn.addEventListener('click', (event) => {
+            profileDropdown.classList.toggle('active');
+            event.stopPropagation();
+        });
+
+        document.addEventListener('click', (event) => {
+            if (!profileBtn.contains(event.target) && !profileDropdown.contains(event.target)) {
+                profileDropdown.classList.remove('active');
+            }
+        });
+
+        // Drag and drop for User Video PiP
+        const userVideoPip = document.getElementById('userVideoPip');
+        let isDragging = false;
+        let offset = { x: 0, y: 0 };
+
+        userVideoPip.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            offset.x = e.clientX - userVideoPip.getBoundingClientRect().left;
+            offset.y = e.clientY - userVideoPip.getBoundingClientRect().top;
+            userVideoPip.style.cursor = 'grabbing';
+            e.preventDefault();
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            if (isDragging) {
+                userVideoPip.style.left = `${e.clientX - offset.x}px`;
+                userVideoPip.style.top = `${e.clientY - offset.y}px`;
+                userVideoPip.style.right = 'auto'; // Disable right/bottom positioning when dragging
+                userVideoPip.style.bottom = 'auto';
+            }
+        });
+
+        document.addEventListener('mouseup', () => {
+            isDragging = false;
+            userVideoPip.style.cursor = 'move';
+        });
+
+        // Control Bar Button Toggles
+        const micBtn = document.getElementById('micBtn');
+        const cameraBtn = document.getElementById('cameraBtn');
+        const sessionStatus = document.getElementById('sessionStatus');
+        const endCallBtn = document.getElementById('endCallBtn');
+        const participantsBtn = document.getElementById('participantsBtn');
+        const notesBtn = document.getElementById('notesBtn');
+
+        micBtn.addEventListener('click', () => {
+            micBtn.classList.toggle('active');
+            micBtn.querySelector('span').textContent = micBtn.classList.contains('active') ? 'mic_off' : 'mic';
+        });
+
+        cameraBtn.addEventListener('click', () => {
+            cameraBtn.classList.toggle('active');
+            cameraBtn.querySelector('span').textContent = cameraBtn.classList.contains('active') ? 'videocam_off' : 'videocam';
+        });
+        
+        endCallBtn.addEventListener('click', () => {
+            const confirmEnd = confirm('Are you sure you want to end the session?');
+            if (confirmEnd) {
+                window.location.href = 'index.html'; // Redirect to home page
+            }
+        });
+        
+        // Timer
+        let timerInterval;
+        let seconds = 0;
+        let minutes = 0;
+        let hours = 0;
+        const sessionTimer = document.getElementById('sessionTimer');
+        
+        function startTimer() {
+            timerInterval = setInterval(() => {
+                seconds++;
+                if (seconds === 60) {
+                    seconds = 0;
+                    minutes++;
+                }
+                if (minutes === 60) {
+                    minutes = 0;
+                    hours++;
+                }
+                const displayTime = 
+                    (hours < 10 ? '0' + hours : hours) + ':' +
+                    (minutes < 10 ? '0' + minutes : minutes) + ':' +
+                    (seconds < 10 ? '0' + seconds : seconds);
+                sessionTimer.textContent = displayTime;
+            }, 1000);
+        }
+
+        // Simulating a call invite and session start
+        window.addEventListener('load', () => {
+            const inviteOverlay = document.getElementById('callInviteOverlay');
+            inviteOverlay.classList.add('active');
+            
+            document.querySelector('.accept').addEventListener('click', () => {
+                inviteOverlay.classList.remove('active');
+                sessionStatus.textContent = 'Live';
+                sessionStatus.classList.remove('connecting');
+                sessionStatus.classList.add('live');
+                startTimer();
+                
+                // Simulate video streams
+                // This would be replaced with actual WebRTC streams
+                const advisorVideo = document.getElementById('advisorVideo');
+                const userVideo = document.getElementById('userVideo');
+                advisorVideo.src = "https://www.w3schools.com/html/mov_bbb.mp4";
+                userVideo.src = "https://www.w3schools.com/html/mov_bbb.mp4";
+            });
+            
+            document.querySelector('.decline').addEventListener('click', () => {
+                window.location.href = 'index.html'; // Or go back to the previous page
+            });
+        });
+        
+        // Panel Toggles (Participants & Notes)
+        const participantsPanel = document.getElementById('participants-panel');
+        const notesPanel = document.getElementById('notes-panel');
+        
+        participantsBtn.addEventListener('click', () => {
+            participantsPanel.classList.toggle('active');
+            notesPanel.classList.remove('active');
+        });
+        
+        notesBtn.addEventListener('click', () => {
+            notesPanel.classList.toggle('active');
+            participantsPanel.classList.remove('active');
+        });
+
+        document.querySelectorAll('.panel .close-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.target.closest('.panel').classList.remove('active');
+            });
+        });
+
+    </script>
+</body>
+</html>
