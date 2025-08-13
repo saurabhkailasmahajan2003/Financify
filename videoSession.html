@@ -786,10 +786,11 @@
             renderAdvisors(sortedAdvisors);
         });
 
-        // Event listener for video session buttons
+        // Event listener for video session buttons - UPDATED
         advisorList.addEventListener('click', (e) => {
             if (e.target.classList.contains('video-btn')) {
-                alert('Redirecting to Video Session...');
+                // Redirect to the voice.html page
+                window.location.href = 'video.html';
             }
         });
         
@@ -824,7 +825,6 @@
                 icon.textContent = 'light_mode';
             }
         });
-        
     </script>
 </body>
 </html>
