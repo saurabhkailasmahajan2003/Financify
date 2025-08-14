@@ -1269,6 +1269,7 @@
                 bottom: var(--spacing-md);
             }
         }
+        
     </style>
 </head>
 
@@ -1281,8 +1282,9 @@
             <span class="material-symbols-outlined icon-btn" onclick="toggleSideMenu()">close</span>
         </div>
         <ul class="menu-items">
-            <li><a href="#"><span class="material-symbols-outlined">home</span>Home</a></li>
-            <li><a href="#trending-advisors"><span class="material-symbols-outlined">group</span>Advisors</a></li>
+            <li><a href="profile.html"><span class="material-symbols-outlined">home</span>Profile</a></li>
+            <li><a href="index.html"><span class="material-symbols-outlined">home</span>Home</a></li>
+            <li><a href="voiceSession.html"><span class="material-symbols-outlined">group</span>Advisors</a></li>
             <li><a href="#"><span class="material-symbols-outlined">payments</span>Pricing</a></li>
             <li><a href="#faq-section"><span class="material-symbols-outlined">contact_support</span>Help Center</a>
             </li>
@@ -1306,25 +1308,20 @@
             <button id="theme-switcher" class="theme-switcher" aria-label="Toggle Theme">
                 <span class="material-symbols-outlined">light_mode</span>
             </button>
+            <!-- <a href="profile.html" class="mobile-profile-link">
+                <span class="material-symbols-outlined icon-btn user-icon">person</span>
+            </a> -->
             <a href="profile.html">
-            <div class="profile-container" style="position: relative;">
-                <span class="material-symbols-outlined icon-btn user-icon"
-                    onclick="toggleProfileDropdown()">person</span>
-                <div id="profileDropdown" class="profile-dropdown">
-                    <div class="profile-header">
-                        <div class="profile-pic">A</div>
-                        <!-- <h3>John Doe</h3>
-                        <p>john.doe@example.com</p> -->
-                    </div>
-                    <!-- <ul class="dropdown-items">
-                        <li><a href="#"><span class="material-symbols-outlined">account_balance_wallet</span>Credits:
-                                15</a></li>
-                        <li><a href="#"><span class="material-symbols-outlined">history</span>Session History</a></li>
-                        <li><a href="#"><span class="material-symbols-outlined">settings</span>Settings</a></li>
-                    </ul> -->
-                    <!-- <a href="#" class="logout-btn">Log Out</a> -->
+                <div class="profile-container" style="position: relative;">
+                    <span class="material-symbols-outlined icon-btn user-icon-desktop"
+                        onclick="toggleProfileDropdown()">person</span>
+                    <div id="profileDropdown" class="profile-dropdown">
+                        <div class="profile-header">
+                            <div class="profile-pic">A</div>
+                            </div>
+                        </div>
                 </div>
-            </div></a>
+            </a>
         </div>
     </header>
 
@@ -1335,20 +1332,23 @@
                 <p class="sub-headline">Book a session with a verified expert and get personalized advice to reach your
                     goals.</p>
                 <div class="session-options"><a href="chatCards.html">
-                    <div class="session-card" data-session="chat">
+                        <div class="session-card" data-session="chat">
                             <span class="material-symbols-outlined icon">chat</span>
                             <div class="text">Chat Session</div>
-                    </div></a>
+                        </div>
+                    </a>
                     <a href="voiceSession.html">
-                    <div class="session-card" data-session="voice">
-                        <span class="material-symbols-outlined icon">call</span>
-                        <div class="text">Voice Session</div>
-                    </div></a>
+                        <div class="session-card">
+                            <span class="material-symbols-outlined icon">call</span>
+                            <div class="text">Voice Session</div>
+                        </div>
+                    </a>
                     <a href="videoSession.html">
-                    <div class="session-card" data-session="video">
-                        <span class="material-symbols-outlined icon">videocam</span>
-                        <div class="text">Video Session</div>
-                    </div></a>
+                        <div class="session-card" data-session="video">
+                            <span class="material-symbols-outlined icon">videocam</span>
+                            <div class="text">Video Session</div>
+                        </div>
+                    </a>
                 </div>
             </div>
         </section>
@@ -1689,7 +1689,7 @@
                 <div class="footer-section">
                     <h3>Contact Us</h3>
                     <p>Email: support@finacify.com</p>
-                    <p>Phone: +91-9876543210</p>
+                    <p>Phone: +91 97636 84771</p>
                 </div>
             </div>
             <div class="footer-bottom">
@@ -1776,9 +1776,9 @@
     const advisorPicEl = document.getElementById('advisor-pic');
 
     // Session Popup Elements
-    const sessionTitleEl = document.getElementById('session-title');
-    const sessionDescriptionEl = document.getElementById('session-description');
-    const sessionIconEl = document.getElementById('session-icon');
+    // const sessionTitleEl = document.getElementById('session-title');
+    // const sessionDescriptionEl = document.getElementById('session-description');
+    // const sessionIconEl = document.getElementById('session-icon');
 
     // --- Helper Functions ---
     function closeAll() {
