@@ -1,0 +1,1036 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finacify - My Profile</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <style>
+        :root {
+            --bg-color: #0a0a0a;
+            --text-color: #f8f8f8;
+            --primary-color: #C5A880; /* Champagne Gold */
+            --secondary-color: #f8f8f8; /* Off-White */
+            --accent-color: #C5A880;
+            --card-bg: #1a1a1a;
+            --border-color: #333;
+            --shadow-color: rgba(197, 168, 128, 0.05);
+            --light-text-color: #999;
+            --success-color: #2e8b57;
+            --danger-color: #a3382d;
+            --warning-color: #C5A880;
+            --font-family: 'Poppins', sans-serif;
+            --border-radius: 8px;
+            --spacing-unit: 1.5rem;
+        }
+
+        .day-theme {
+            --bg-color: #f8f8f8;
+            --text-color: #000000;
+            --card-bg: #ffffff;
+            --border-color: #e0e0e0;
+            --shadow-color: rgba(0, 0, 0, 0.05);
+            --light-text-color: #777;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: var(--spacing-unit);
+        }
+        
+        /* --- Navbar Styles --- */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem var(--spacing-unit);
+            background-color: var(--card-bg);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px var(--shadow-color);
+        }
+
+        .header-left, .header-right {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .logo {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text-color);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .logo-text {
+            color: var(--accent-color);
+        }
+
+        .search-bar {
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            background-color: var(--bg-color);
+            border-radius: 50px;
+            padding: 0.5rem 1rem;
+            max-width: 300px;
+            border: 1px solid var(--border-color);
+        }
+
+        .search-bar input {
+            border: none;
+            outline: none;
+            background: transparent;
+            color: var(--text-color);
+            width: 100%;
+            font-family: var(--font-family);
+            font-size: 0.9rem;
+        }
+
+        .search-bar input::placeholder {
+            color: var(--light-text-color);
+        }
+
+        .icon-btn, .theme-switcher, .hamburger-icon {
+            background: none;
+            border: none;
+            color: var(--text-color);
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 50%;
+            transition: background-color 0.2s;
+            font-variation-settings: 'FILL' 1, 'wght' 400;
+        }
+
+        .icon-btn:hover, .theme-switcher:hover, .hamburger-icon:hover {
+            background-color: var(--border-color);
+        }
+
+        .hamburger-icon span {
+            display: block;
+            width: 25px;
+            height: 2px;
+            background-color: var(--text-color);
+            margin: 5px 0;
+            transition: all 0.3s;
+        }
+
+        .hamburger-icon.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        .hamburger-icon.active span:nth-child(2) { opacity: 0; }
+        .hamburger-icon.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+        
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s;
+        }
+
+        .overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* --- Sidebar Styles --- */
+        .sidebar-menu {
+            position: fixed;
+            top: 0;
+            left: -300px;
+            width: 280px;
+            height: 100%;
+            background-color: var(--card-bg);
+            z-index: 1001;
+            padding: var(--spacing-unit);
+            box-shadow: 2px 0 10px var(--shadow-color);
+            transition: left 0.3s ease;
+        }
+
+        .sidebar-menu.active {
+            left: 0;
+        }
+
+        .menu-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: var(--spacing-unit);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .menu-items {
+            list-style: none;
+            padding: var(--spacing-unit) 0;
+            margin: 0;
+        }
+
+        .menu-items a {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.75rem 1rem;
+            color: var(--text-color);
+            text-decoration: none;
+            border-radius: var(--border-radius);
+            transition: background-color 0.2s;
+        }
+
+        .menu-items a:hover {
+            background-color: var(--border-color);
+        }
+        
+        /* --- Main Profile Page Layout --- */
+        .profile-page-main {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            padding-top: var(--spacing-unit);
+            padding-bottom: var(--spacing-unit);
+        }
+        
+        /* --- User Info Card (Top Section) --- */
+        .user-info-card {
+            background-color: var(--card-bg);
+            padding: 2.5rem;
+            border-radius: var(--border-radius);
+            box-shadow: 0 4px 10px var(--shadow-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+        
+        .user-info-card-left {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .user-info-card .profile-pic {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            background-color: var(--accent-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            font-weight: 600;
+            color: var(--card-bg);
+            flex-shrink: 0;
+        }
+
+        .user-info-details h1 {
+            margin: 0;
+            font-size: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 600;
+        }
+        
+        .user-info-details p {
+            margin: 0.25rem 0;
+            color: var(--light-text-color);
+            font-size: 1rem;
+            font-weight: 500;
+        }
+        
+        .user-info-details .verified-badge {
+            font-size: 1.2rem;
+            color: var(--success-color);
+            font-variation-settings: 'FILL' 1, 'wght' 400;
+        }
+
+        .premium-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: linear-gradient(45deg, #a58e6d, #C5A880);
+            color: #fff;
+            padding: 0.25rem 0.75rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-top: 0.5rem;
+            box-shadow: 0 2px 8px rgba(197, 168, 128, 0.4);
+        }
+        .premium-badge .material-symbols-outlined {
+            font-size: 1rem;
+        }
+
+        .user-info-card-right {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            align-items: flex-end;
+        }
+        
+        .credits-info {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            background-color: var(--bg-color);
+            padding: 0.75rem 1.25rem;
+            border-radius: var(--border-radius);
+            border: 1px solid var(--border-color);
+        }
+
+        .credits-info .credits-value {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--accent-color);
+        }
+        
+        .credits-info .credits-label {
+            font-size: 0.9rem;
+            color: var(--light-text-color);
+        }
+        
+        .user-details-extended {
+            width: 100%;
+            border-top: 1px solid var(--border-color);
+            margin-top: 2.5rem;
+            padding-top: 1.5rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .user-details-extended .detail-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .user-details-extended .detail-item .label {
+            font-weight: 500;
+            color: var(--light-text-color);
+            font-size: 0.9rem;
+        }
+        
+        .user-details-extended .detail-item .value {
+            font-weight: 600;
+            color: var(--text-color);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .edit-profile-btn {
+            background-color: var(--primary-color);
+            color: var(--card-bg);
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: background-color 0.2s, transform 0.2s;
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .edit-profile-btn:hover {
+            background-color: #b3956d;
+            transform: translateY(-2px);
+        }
+        
+        /* --- History Sections (Horizontal Scroll) --- */
+        .history-section {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .history-section h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-color);
+            margin-bottom: 0.5rem;
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 0.5rem;
+        }
+        
+        .history-list-wrapper {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            padding-bottom: 1rem;
+            /* Hide scrollbar */
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+        .history-list-wrapper::-webkit-scrollbar {
+            display: none;
+        }
+
+        .history-list {
+            display: inline-flex;
+            gap: 1.5rem;
+        }
+
+        .session-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: var(--spacing-unit);
+            border-radius: var(--border-radius);
+            min-width: 320px;
+            max-width: 320px;
+            box-shadow: 0 4px 8px var(--shadow-color);
+            transition: all 0.2s ease-in-out;
+        }
+
+        .session-card:hover {
+            box-shadow: 0 6px 12px var(--shadow-color);
+            transform: translateY(-4px);
+        }
+
+        .session-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            border-bottom: 1px dashed var(--border-color);
+            padding-bottom: 1rem;
+        }
+        
+        .session-type {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 600;
+            color: var(--accent-color);
+        }
+        
+        .session-type .icon {
+            font-size: 1.2rem;
+            font-variation-settings: 'FILL' 1, 'wght' 400;
+        }
+
+        .session-status {
+            padding: 0.25rem 0.75rem;
+            border-radius: 15px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .status-completed { background-color: var(--success-color); color: #fff; }
+        .status-missed, .status-cancelled { background-color: var(--danger-color); color: #fff; }
+        .status-scheduled { background-color: #3f68a8; color: #fff; }
+
+        .advisor-details {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .advisor-details .advisor-pic {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--accent-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--card-bg);
+            font-size: 1rem;
+            flex-shrink: 0;
+        }
+
+        .advisor-info h4 {
+            margin: 0;
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .advisor-info p {
+            margin: 0;
+            font-size: 0.8rem;
+            color: var(--light-text-color);
+        }
+        
+        .session-metadata {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            font-size: 0.8rem;
+            margin-bottom: 1rem;
+        }
+        
+        .metadata-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .metadata-item .label {
+            font-weight: 500;
+            color: var(--light-text-color);
+        }
+        
+        .metadata-item .value {
+            font-weight: 500;
+        }
+
+        .session-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1rem;
+        }
+        
+        .toggle-details {
+            background: none;
+            border: none;
+            color: var(--accent-color);
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            transition: color 0.2s;
+        }
+        
+        .toggle-details:hover {
+            color: #b3956d;
+        }
+
+        .session-feedback .rating {
+            color: var(--warning-color);
+            letter-spacing: 2px;
+            font-size: 1rem;
+            font-variation-settings: 'FILL' 1, 'wght' 700;
+        }
+
+        /* --- Collapsible Details Content --- */
+        .session-details-content {
+            overflow: hidden;
+            max-height: 0;
+            transition: max-height 0.5s ease-in-out;
+        }
+        
+        .session-card.expanded .session-details-content {
+            max-height: 500px;
+            transition: max-height 0.5s ease-in-out;
+        }
+
+        .session-summary, .session-documents, .session-recording {
+            margin-top: 1rem;
+            border-top: 1px solid var(--border-color);
+            padding-top: 1rem;
+        }
+
+        .session-summary p {
+            font-size: 0.8rem;
+            color: var(--light-text-color);
+        }
+        
+        .session-documents ul {
+            list-style: none;
+            padding: 0;
+            margin: 0.5rem 0;
+        }
+        
+        .session-documents li a,
+        .session-recording a {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--accent-color);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+        
+        .session-documents li a:hover,
+        .session-recording a:hover {
+            color: #b3956d;
+        }
+        
+        .no-sessions {
+            text-align: center;
+            padding: var(--spacing-unit);
+            font-size: 1rem;
+            color: var(--light-text-color);
+        }
+        
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        /* --- Responsive Styles --- */
+        @media (max-width: 992px) {
+            .header .search-bar {
+                display: none;
+            }
+            .user-info-card {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 1.5rem;
+            }
+            .user-info-card-right {
+                align-items: flex-start;
+            }
+            .user-details-extended {
+                margin-top: 1.5rem;
+                padding-top: 1rem;
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .header-left, .header-right {
+                gap: 0.5rem;
+            }
+            .logo {
+                font-size: 1rem;
+            }
+            .header {
+                padding: 0.75rem 1rem;
+            }
+            .user-info-card {
+                padding: 1rem;
+            }
+            .user-info-card-left {
+                flex-direction: column;
+                text-align: center;
+                gap: 0.75rem;
+            }
+            .user-info-card .profile-pic {
+                width: 60px;
+                height: 60px;
+                font-size: 2rem;
+            }
+            .user-info-details h1 {
+                font-size: 1.5rem;
+            }
+            .user-info-details p {
+                font-size: 0.9rem;
+            }
+            .credits-info {
+                padding: 0.5rem 1rem;
+            }
+            .credits-info .credits-value {
+                font-size: 1rem;
+            }
+            .credits-info .credits-label {
+                font-size: 0.8rem;
+            }
+            .edit-profile-btn {
+                width: 100%;
+                justify-content: center;
+            }
+            .session-card {
+                min-width: 280px;
+                max-width: 280px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="overlay" onclick="closeAll()"></div>
+
+    <aside id="sidebarMenu" class="sidebar-menu">
+        <div class="menu-header">
+            <div class="logo">Finacify<span class="logo-text">.</span></div>
+            <span class="material-symbols-outlined icon-btn" onclick="toggleSideMenu()">close</span>
+        </div>
+        <ul class="menu-items">
+            <li><a href="#"><span class="material-symbols-outlined">home</span>Home</a></li>
+            <li><a href="#"><span class="material-symbols-outlined">group</span>Advisors</a></li>
+            <li><a href="#"><span class="material-symbols-outlined">payments</span>Pricing</a></li>
+            <li><a href="#"><span class="material-symbols-outlined">contact_support</span>Help Center</a></li>
+        </ul>
+    </aside>
+
+    <header class="header">
+        <div class="header-left">
+            <button class="hamburger-icon" onclick="toggleSideMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <div class="logo">Finacify<span class="logo-text">.</span></div>
+        </div>
+        <div class="search-bar">
+            <input type="text" placeholder="Search for advisors...">
+            <span class="material-symbols-outlined search-icon" style="font-size: 1.2rem;">search</span>
+        </div>
+        <div class="header-right">
+            <button id="theme-switcher" class="theme-switcher" aria-label="Toggle Theme">
+                <span class="material-symbols-outlined">light_mode</span>
+            </button>
+        </div>
+    </header>
+
+    <main class="container profile-page-main">
+        <section class="user-info-card">
+            <div class="user-info-card-left">
+                <div class="profile-pic">J</div>
+                <div class="user-info-details">
+                    <h1>John Doe <span class="material-symbols-outlined verified-badge">verified</span></h1>
+                    <p>Financial Consultant</p>
+                    <div class="premium-badge">
+                        <span class="material-symbols-outlined">workspace_premium</span>
+                        Premium Member
+                    </div>
+                </div>
+            </div>
+            
+            <div class="user-info-card-right">
+                <div class="credits-info">
+                    <span class="credits-value">15</span>
+                    <span class="credits-label">Credits Remaining</span>
+                </div>
+                <a href="#" class="edit-profile-btn">
+                    <span class="material-symbols-outlined">edit</span>
+                    Edit Profile
+                </a>
+            </div>
+
+            <div class="user-details-extended">
+                <div class="detail-item">
+                    <span class="label">Email</span>
+                    <span class="value">john.doe@example.com</span>
+                </div>
+                <div class="detail-item">
+                    <span class="label">Mobile Number</span>
+                    <span class="value">+91 98765 43210</span>
+                </div>
+                <div class="detail-item">
+                    <span class="label">Location</span>
+                    <span class="value">Mumbai, India</span>
+                </div>
+                <div class="detail-item">
+                    <span class="label">Linked UPI ID</span>
+                    <span class="value">john.doe@okicici</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="history-section">
+            <h2>Video Sessions</h2>
+            <div class="history-list-wrapper">
+                <div class="history-list" id="videoSessionsList">
+                    </div>
+            </div>
+        </section>
+
+        <section class="history-section">
+            <h2>Voice Calls</h2>
+            <div class="history-list-wrapper">
+                <div class="history-list" id="voiceCallsList">
+                    </div>
+            </div>
+        </section>
+
+        <section class="history-section">
+            <h2>Chat Sessions</h2>
+            <div class="history-list-wrapper">
+                <div class="history-list" id="chatSessionsList">
+                    </div>
+            </div>
+        </section>
+    </main>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- UI Element Selectors ---
+            const body = document.body;
+            const overlay = document.querySelector('.overlay');
+            const sidebarMenu = document.getElementById('sidebarMenu');
+            const hamburgerIcon = document.querySelector('.hamburger-icon');
+            const themeSwitcher = document.getElementById('theme-switcher');
+            const videoSessionsList = document.getElementById('videoSessionsList');
+            const voiceCallsList = document.getElementById('voiceCallsList');
+            const chatSessionsList = document.getElementById('chatSessionsList');
+
+            // Mock Data for User Sessions
+            const userSessions = [
+                {
+                    type: 'video',
+                    advisor: { name: 'Priya Sharma', specialization: 'Tax Consultant', picInitial: 'P' },
+                    date: '2025-08-16',
+                    time: '10:30 AM',
+                    duration: '00:45:00',
+                    status: 'Scheduled',
+                    credits: 800,
+                    summary: 'Meeting to discuss tax-saving strategies for the current financial year. Advised on investments in ELSS funds and PPF. Provided a detailed summary of eligible deductions.',
+                    documents: [{ name: 'Tax_Saving_Guide.pdf', url: '#' }],
+                    rating: 5,
+                    recordingUrl: '#',
+                },
+                {
+                    type: 'chat',
+                    advisor: { name: 'Arjun Desai', specialization: 'Investment Strategist', picInitial: 'A' },
+                    date: '2025-08-15',
+                    time: '04:00 PM',
+                    duration: '00:20:00',
+                    status: 'Scheduled',
+                    credits: 500,
+                    summary: 'Brief chat about the current market volatility and recommended adjusting the portfolio to a more defensive stance. Advised on specific index funds.',
+                    documents: [],
+                    rating: 4,
+                    recordingUrl: null,
+                },
+                {
+                    type: 'voice',
+                    advisor: { name: 'Shreya Kapoor', specialization: 'Debt & Loans Advisor', picInitial: 'S' },
+                    date: '2025-08-10',
+                    time: '02:00 PM',
+                    duration: '00:30:00',
+                    status: 'Cancelled',
+                    credits: 650,
+                    summary: 'N/A - Session was cancelled by the user.',
+                    documents: [],
+                    rating: null,
+                    recordingUrl: null,
+                },
+                {
+                    type: 'voice',
+                    advisor: { name: 'Priya Sharma', specialization: 'Tax Consultant', picInitial: 'P' },
+                    date: '2025-08-08',
+                    time: '09:00 AM',
+                    duration: '00:15:00',
+                    status: 'Completed',
+                    credits: 300,
+                    summary: 'Clarified a quick question about GST for my small business. Advisor was very helpful and gave a clear, concise answer.',
+                    documents: [],
+                    rating: 5,
+                    recordingUrl: '#',
+                },
+                {
+                    type: 'video',
+                    advisor: { name: 'Arjun Desai', specialization: 'Investment Strategist', picInitial: 'A' },
+                    date: '2025-08-05',
+                    time: '06:00 PM',
+                    duration: '01:00:00',
+                    status: 'Completed',
+                    credits: 1000,
+                    summary: 'Created a long-term investment plan focusing on retirement goals. Reviewed current assets and liabilities to build a balanced portfolio.',
+                    documents: [{ name: 'Investment_Plan_Q3-2025.pdf', url: '#' }],
+                    rating: 5,
+                    recordingUrl: '#',
+                },
+                {
+                    type: 'chat',
+                    advisor: { name: 'Vikram Singh', specialization: 'Retirement Planner', picInitial: 'V' },
+                    date: '2025-08-01',
+                    time: '11:00 AM',
+                    duration: '00:35:00',
+                    status: 'Completed',
+                    credits: 700,
+                    summary: 'Discussion about retirement goals and suitable investment products. Advised on pension schemes and tax benefits.',
+                    documents: [],
+                    rating: 5,
+                    recordingUrl: null,
+                }
+            ];
+
+            // --- Functionality for Navbar and General UI ---
+            function closeAll() {
+                sidebarMenu.classList.remove('active');
+                hamburgerIcon.classList.remove('active');
+                overlay.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+
+            function toggleSideMenu() {
+                const isActive = sidebarMenu.classList.contains('active');
+                closeAll();
+                if (!isActive) {
+                    sidebarMenu.classList.add('active');
+                    hamburgerIcon.classList.add('active');
+                    overlay.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                }
+            }
+            
+            function toggleTheme() {
+                body.classList.toggle('day-theme');
+                const isDayTheme = body.classList.contains('day-theme');
+                themeSwitcher.querySelector('span').textContent = isDayTheme ? 'dark_mode' : 'light_mode';
+                localStorage.setItem('theme', isDayTheme ? 'day' : 'night');
+            }
+
+            // --- Functionality for Profile Page ---
+            function renderSessions(sessionsToRender, targetElement) {
+                targetElement.innerHTML = '';
+                if (sessionsToRender.length === 0) {
+                    targetElement.innerHTML = '<div class="no-sessions">No sessions found.</div>';
+                    return;
+                }
+
+                sessionsToRender.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+                sessionsToRender.forEach(session => {
+                    const sessionCard = document.createElement('div');
+                    sessionCard.className = 'session-card';
+
+                    const sessionIcon = {
+                        voice: 'call',
+                        video: 'videocam',
+                        chat: 'chat_bubble'
+                    }[session.type];
+                    
+                    const sessionTypeTitle = {
+                        voice: 'Voice Call',
+                        video: 'Video Session',
+                        chat: 'Chat Session'
+                    }[session.type];
+
+                    const statusClass = `status-${session.status.toLowerCase().replace(' ', '-')}`;
+                    const ratingStars = session.rating ? '★'.repeat(session.rating) + '☆'.repeat(5 - session.rating) : 'Not Rated';
+                    
+                    const isCompleted = session.status === 'Completed';
+
+                    sessionCard.innerHTML = `
+                        <div class="session-header">
+                            <div class="session-type">
+                                <span class="material-symbols-outlined icon">${sessionIcon}</span>
+                                <span>${sessionTypeTitle}</span>
+                            </div>
+                            <span class="session-status ${statusClass}">${session.status}</span>
+                        </div>
+                        <div class="advisor-details">
+                            <div class="advisor-pic">${session.advisor.picInitial}</div>
+                            <div class="advisor-info">
+                                <h4>${session.advisor.name}</h4>
+                                <p>${session.advisor.specialization}</p>
+                            </div>
+                        </div>
+                        <div class="session-metadata">
+                            <div class="metadata-item">
+                                <span class="label">Date:</span>
+                                <span class="value">${session.date}</span>
+                            </div>
+                            <div class="metadata-item">
+                                <span class="label">Time:</span>
+                                <span class="value">${session.time}</span>
+                            </div>
+                            <div class="metadata-item">
+                                <span class="label">Credits:</span>
+                                <span class="value">${session.credits}</span>
+                            </div>
+                        </div>
+                        ${isCompleted ? `
+                        <div class="session-actions">
+                            <a href="#" class="toggle-details">
+                                <span class="material-symbols-outlined" style="font-size: 1rem;">info</span>
+                                <span>View Details</span>
+                            </a>
+                            ${session.rating ? `
+                                <div class="session-feedback">
+                                    <p class="rating">${ratingStars}</p>
+                                </div>
+                            ` : ''}
+                        </div>
+                        <div class="session-details-content">
+                            <div class="session-summary">
+                                <p style="font-weight: 600; color: var(--secondary-color);">AI-Generated Summary:</p>
+                                <p>${session.summary}</p>
+                            </div>
+                            ${session.documents.length > 0 ? `
+                            <div class="session-documents">
+                                <p style="font-weight: 600; color: var(--secondary-color);">Shared Documents:</p>
+                                <ul>
+                                    ${session.documents.map(doc => `<li><a href="${doc.url}"><span class="material-symbols-outlined" style="font-size: 1rem;">download</span>${doc.name}</a></li>`).join('')}
+                                </ul>
+                            </div>` : ''}
+                            ${session.recordingUrl ? `
+                            <div class="session-recording">
+                                <p style="font-weight: 600; color: var(--secondary-color);">Recording:</p>
+                                <a href="${session.recordingUrl}" class="recording-link"><span class="material-symbols-outlined" style="font-size: 1rem;">play_circle</span>Listen to Recording</a>
+                            </div>` : ''}
+                        </div>
+                        ` : ''}
+                    `;
+                    
+                    if (isCompleted) {
+                        sessionCard.querySelector('.toggle-details').addEventListener('click', (e) => {
+                            e.preventDefault();
+                            const content = sessionCard.querySelector('.session-details-content');
+                            const toggleButton = e.currentTarget.querySelector('span:last-child');
+                            if (content.style.maxHeight && content.style.maxHeight !== '0px') {
+                               content.style.maxHeight = '0';
+                               toggleButton.textContent = 'View Details';
+                               e.currentTarget.classList.remove('expanded');
+                            } else {
+                               content.style.maxHeight = content.scrollHeight + 'px';
+                               toggleButton.textContent = 'Hide Details';
+                               e.currentTarget.classList.add('expanded');
+                            }
+                        });
+                    }
+
+
+                    targetElement.appendChild(sessionCard);
+                });
+            }
+
+            // --- Initial Setup and Event Listeners ---
+            
+            // Filter sessions by type
+            const videoSessions = userSessions.filter(s => s.type === 'video');
+            const voiceSessions = userSessions.filter(s => s.type === 'voice');
+            const chatSessions = userSessions.filter(s => s.type === 'chat');
+
+            // Initial render
+            renderSessions(videoSessions, videoSessionsList);
+            renderSessions(voiceSessions, voiceCallsList);
+            renderSessions(chatSessions, chatSessionsList);
+
+            // Navbar and UI Listeners
+            hamburgerIcon.addEventListener('click', toggleSideMenu);
+            document.querySelector('.menu-header .icon-btn').addEventListener('click', toggleSideMenu);
+            overlay.addEventListener('click', closeAll);
+            themeSwitcher.addEventListener('click', toggleTheme);
+            
+            // Load theme from localStorage
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'day') {
+                body.classList.add('day-theme');
+                themeSwitcher.querySelector('span').textContent = 'dark_mode';
+            } else {
+                body.classList.remove('day-theme');
+                themeSwitcher.querySelector('span').textContent = 'light_mode';
+            }
+        });
+    </script>
+</body>
+</html>
