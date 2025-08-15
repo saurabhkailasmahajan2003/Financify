@@ -1,233 +1,228 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Finacify Signup</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap">
-    <style>
-        /* Global Variables for Dark Theme */
-        :root {
-            --primary-black: #000000;
-            --accent-gold: #C5A880;
-            --background-dark: #1a1a1a;
-            --card-bg-dark: #2a2a2a;
-            --primary-text: #e0e0e0;
-            --secondary-text: #a0a0a0;
-            --border-color-dark: #444;
-            --shadow-dark: rgba(0, 0, 0, 0.4);
-            --border-radius: 8px;
-        }
+    <title>Finacify Signup</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap">
+    <style>
+        :root {
+            --primary-black: #000000;
+            --accent-gold: #C5A880;
+            --background-dark: #1a1a1a;
+            --card-bg-dark: #2a2a2a;
+            --primary-text: #e0e0e0;
+            --secondary-text: #a0a0a0;
+            --border-color-dark: #444;
+            --shadow-dark: rgba(0, 0, 0, 0.4);
+            --border-radius: 8px;
+        }
 
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: var(--background-dark);
-            color: var(--primary-text);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            transition: background-color 0.3s, color 0.3s;
-        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background-dark);
+            color: var(--primary-text);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            transition: background-color 0.3s, color 0.3s;
+        }
 
-        .signup-container {
-            background-color: var(--card-bg-dark);
-            padding: 3rem;
-            border-radius: var(--border-radius);
-            box-shadow: 0 10px 30px var(--shadow-dark);
-            width: 100%;
-            max-width: 400px;
-            text-align: center;
-            border: 1px solid var(--border-color-dark);
-        }
-        
-        .title {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: var(--accent-gold);
-            margin-bottom: 0.5rem;
-        }
+        .signup-container {
+            background-color: var(--card-bg-dark);
+            padding: 3rem;
+            border-radius: var(--border-radius);
+            box-shadow: 0 10px 30px var(--shadow-dark);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            border: 1px solid var(--border-color-dark);
+        }
+        
+        .title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--accent-gold);
+            margin-bottom: 0.5rem;
+        }
 
-        .subtitle {
-            font-size: 1.5rem;
-            font-weight: 600;
-            margin-bottom: 2rem;
-            color: var(--primary-text);
-        }
+        .subtitle {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            color: var(--primary-text);
+        }
 
-        .form-group {
-            margin-bottom: 1.5rem;
-            text-align: left;
-        }
+        .form-group {
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
 
-        .form-group label {
-            display: block;
-            font-size: 0.9rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            color: var(--primary-text);
-        }
+        .form-group label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--primary-text);
+        }
 
-        .form-group input {
-            width: 100%;
-            padding: 0.75rem;
-            font-size: 1rem;
-            background-color: transparent;
-            border: 1px solid var(--border-color-dark);
-            border-radius: var(--border-radius);
-            color: var(--primary-text);
-            transition: border-color 0.3s, box-shadow 0.3s;
-            box-sizing: border-box; /* Ensures padding doesn't affect width */
-        }
-        
-        .form-group input::placeholder {
-            color: var(--secondary-text);
-        }
+        .form-group input {
+            width: 100%;
+            padding: 0.75rem;
+            font-size: 1rem;
+            background-color: transparent;
+            border: 1px solid var(--border-color-dark);
+            border-radius: var(--border-radius);
+            color: var(--primary-text);
+            transition: border-color 0.3s, box-shadow 0.3s;
+            box-sizing: border-box;
+        }
+        
+        .form-group input::placeholder {
+            color: var(--secondary-text);
+        }
 
-        .form-group input:focus {
-            outline: none;
-            border-color: var(--accent-gold);
-            box-shadow: 0 0 0 2px rgba(197, 168, 128, 0.5);
-        }
-        
-        .form-group input:invalid:focus {
-            border-color: #d10000;
-        }
-        
-        .signup-btn {
-            width: 100%;
-            padding: 1rem;
-            background-color: var(--accent-gold);
-            color: var(--primary-black);
-            border: none;
-            border-radius: var(--border-radius);
-            font-size: 1.1rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-        
-        .signup-btn:hover {
-            background-color: #f7d794;
-        }
-        
-        .login-link {
-            font-size: 0.9rem;
-            margin-top: 1.5rem;
-            color: var(--secondary-text);
-            display: block;
-        }
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--accent-gold);
+            box-shadow: 0 0 0 2px rgba(197, 168, 128, 0.5);
+        }
+        
+        .form-group input:invalid:focus {
+            border-color: #d10000;
+        }
+        
+        .signup-btn {
+            width: 100%;
+            padding: 1rem;
+            background-color: var(--accent-gold);
+            color: var(--primary-black);
+            border: none;
+            border-radius: var(--border-radius);
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .signup-btn:hover {
+            background-color: #f7d794;
+        }
+        
+        .login-link {
+            font-size: 0.9rem;
+            margin-top: 1.5rem;
+            color: var(--secondary-text);
+            display: block;
+        }
 
-        .login-link a {
-            color: var(--accent-gold);
-            text-decoration: none;
-            font-weight: 600;
-            transition: color 0.2s;
-        }
+        .login-link a {
+            color: var(--accent-gold);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.2s;
+        }
 
-        .login-link a:hover {
-            text-decoration: underline;
-        }
+        .login-link a:hover {
+            text-decoration: underline;
+        }
 
-        .error {
-            color: #F44336;
-            font-size: 0.9rem;
-            margin-top: 1rem;
-            font-weight: 600;
-        }
-        
-        /* Responsive adjustments for smaller screens */
-        @media (max-width: 600px) {
-            .signup-container {
-                width: 90%;
-                padding: 2rem 1.5rem;
-            }
-            .title {
-                font-size: 2rem;
-            }
-            .subtitle {
-                font-size: 1.25rem;
-            }
-        }
-    </style>
+        .error {
+            color: #F44336;
+            font-size: 0.9rem;
+            margin-top: 1rem;
+            font-weight: 600;
+        }
+        
+        @media (max-width: 600px) {
+            .signup-container {
+                width: 90%;
+                padding: 2rem 1.5rem;
+            }
+            .title {
+                font-size: 2rem;
+            }
+            .subtitle {
+                font-size: 1.25rem;
+            }
+        }
+    </style>
 </head>
 <body>
 
 <div class="signup-container">
-    <div class="title">Finacify</div>
-    <h2 class="subtitle">Create Account</h2>
+    <div class="title">Finacify</div>
+    <h2 class="subtitle">Create Account</h2>
 
-    <form id="signupForm">
-        <div class="form-group">
-            <label for="name">Full Name</label>
-            <input type="text" id="name" placeholder="John Doe" required>
-        </div>
-        <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" id="email" placeholder="john.doe@example.com" required>
-        </div>
-        <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" id="password" placeholder="Enter a strong password" required>
-        </div>
-        <button type="submit" class="signup-btn">Sign Up</button>
-    </form>
+    <form id="signupForm">
+        <div class="form-group">
+            <label for="name">Full Name</label>
+            <input type="text" id="name" placeholder="John Doe" required>
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" placeholder="john.doe@example.com" required>
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" placeholder="Enter a strong password" required>
+        </div>
+        <button type="submit" class="signup-btn">Sign Up</button>
+    </form>
 
-    <p class="error" id="errorMessage"></p>
-    <p class="login-link">
-        Already have an account? <a href="index.html">Login</a>
-    </p>
+    <p class="error" id="errorMessage"></p>
+    <p class="login-link">
+        Already have an account? <a href="index.html">Login</a>
+    </p>
 </div>
 
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
 
 <script>
-    // Firebase config from your previous file
-    const firebaseConfig = {
-        apiKey: "AIzaSyDkMKnetkPoGvV-UpfsAy6r5FUb5qgYWgM",
-        authDomain: "financify25.firebaseapp.com",
-        projectId: "financify25",
-        storageBucket: "financify25.firebasestorage.app",
-        messagingSenderId: "165533905532",
-        appId: "1:165533905532:web:5bead8b1baab958acdcff9",
-        measurementId: "G-3NC7BBWCVZ"
-    };
+    const firebaseConfig = {
+        apiKey: "AIzaSyDkMKnetkPoGvV-UpfsAy6r5FUb5qgYWgM",
+        authDomain: "financify25.firebaseapp.com",
+        projectId: "financify25",
+        storageBucket: "financify25.firebasestorage.app",
+        messagingSenderId: "165533905532",
+        appId: "1:165533905532:web:5bead8b1baab958acdcff9",
+        measurementId: "G-3NC7BBWCVZ"
+    };
 
-    firebase.initializeApp(firebaseConfig);
-    const auth = firebase.auth();
-    const signupForm = document.getElementById("signupForm");
-    const nameInput = document.getElementById("name");
-    const emailInput = document.getElementById("email");
-    const passwordInput = document.getElementById("password");
-    const errorMessage = document.getElementById("errorMessage");
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const signupForm = document.getElementById("signupForm");
+    const nameInput = document.getElementById("name");
+    const emailInput = document.getElementById("email");
+    const passwordInput = document.getElementById("password");
+    const errorMessage = document.getElementById("errorMessage");
 
-    signupForm.addEventListener("submit", function(e) {
-        e.preventDefault();
-        const name = nameInput.value;
-        const email = emailInput.value;
-        const password = passwordInput.value;
-        
-        errorMessage.textContent = ''; // Clear previous errors
+    signupForm.addEventListener("submit", function(e) {
+        e.preventDefault();
+        const name = nameInput.value;
+        const email = emailInput.value;
+        const password = passwordInput.value;
+        
+        errorMessage.textContent = '';
 
-        auth.createUserWithEmailAndPassword(email, password)
-            .then(userCredential => {
-                // Update display name
-                return userCredential.user.updateProfile({
-                    displayName: name
-                });
-            })
-            .then(() => {
-                alert("Signup successful! You can now log in.");
-                window.location.href = "index.html"; // Redirect to login page
-            })
-            .catch(error => {
-                errorMessage.textContent = error.message;
-            });
-    });
+        auth.createUserWithEmailAndPassword(email, password)
+            .then(userCredential => {
+                return userCredential.user.updateProfile({
+                    displayName: name
+                });
+            })
+            .then(() => {
+                alert("Signup successful! You can now log in.");
+                window.location.href = "index.html";
+            })
+            .catch(error => {
+                errorMessage.textContent = error.message;
+            });
+    });
 </script>
 
 </body>
 </html>
-
