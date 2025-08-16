@@ -1261,7 +1261,7 @@
                 right: 5%;
                 bottom: var(--spacing-md);
             }
-        }        
+        }
     </style>
 </head>
 
@@ -1310,8 +1310,8 @@
                     <div id="profileDropdown" class="profile-dropdown">
                         <div class="profile-header">
                             <div class="profile-pic">A</div>
-                            </div>
                         </div>
+                    </div>
                 </div>
             </a>
         </div>
@@ -1743,310 +1743,305 @@
     </div>
 
 
-      <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
     <script>
 
+        // Firebase Config
         const firebaseConfig = {
-      apiKey: "AIzaSyDkMKnetkPoGvV-UpfsAy6r5FUb5qgYWgM",
-      authDomain: "financify25.firebaseapp.com",
-      projectId: "financify25",
-      storageBucket: "financify25.firebasestorage.app",
-      messagingSenderId: "165533905532",
-      appId: "1:165533905532:web:5bead8b1baab958acdcff9",
-      measurementId: "G-3NC7BBWCVZ"
-    };
+            apiKey: "AIzaSyDkMKnetkPoGvV-UpfsAy6r5FUb5qgYWgM",
+            authDomain: "financify25.firebaseapp.com",
+            projectId: "financify25",
+            storageBucket: "financify25.firebasestorage.app",
+            messagingSenderId: "165533905532",
+            appId: "1:165533905532:web:5bead8b1baab958acdcff9",
+            measurementId: "G-3NC7BBWCVZ"
+        };
 
-    firebase.initializeApp(firebaseConfig);
-    const auth = firebase.auth();
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
 
-    // Email/Password login
-    document.getElementById("loginForm").addEventListener("submit", function (e) {
-      e.preventDefault();
-      const email = document.getElementById("email").value;
-      const password = document.getElementById("password").value;
+        // Email/Password login
+        document.getElementById("loginForm").addEventListener("submit", function (e) {
+            e.preventDefault();
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
 
-      auth.signInWithEmailAndPassword(email, password)
-        .then(() => {
-          alert("Login successful!");
-          window.location.href = "login.html"; // dashboard
-        })
-        .catch(error => {
-          document.getElementById("errorMessage").innerText = error.message;
+            auth.signInWithEmailAndPassword(email, password)
+                .then(() => {
+                    alert("Login successful!");
+                    window.location.href = "login.html"; // dashboard
+                })
+                .catch(error => {
+                    document.getElementById("errorMessage").innerText = error.message;
+                });
         });
-    });
 
-    // Google login
-    document.getElementById("googleLoginBtn").addEventListener("click", function () {
-      const provider = new firebase.auth.GoogleAuthProvider();
-      auth.signInWithPopup(provider)
-        .then(() => {
-          alert("Google login successful!");
-          window.location.href = "login.html"; // dashboard
-        })
-        .catch(error => {
-          document.getElementById("errorMessage").innerText = error.message;
+        // Google login
+        document.getElementById("googleLoginBtn").addEventListener("click", function () {
+            const provider = new firebase.auth.GoogleAuthProvider();
+            auth.signInWithPopup(provider)
+                .then(() => {
+                    alert("Google login successful!");
+                    window.location.href = "login.html"; // dashboard
+                })
+                .catch(error => {
+                    document.getElementById("errorMessage").innerText = error.message;
+                });
         });
-    });
 
-    // 🔐 Protect page (redirect if not logged in)
-    auth.onAuthStateChanged((user) => {
-      if (!user) {
-        window.location.href = "index.html"; // back to login form
-      }
-    });
-
-    // 🚪 Logout function (optional, if you add logout button)
-    function logout() {
-      auth.signOut().then(() => {
-        window.location.href = "index.html";
-      });
-    }
-       document.addEventListener('DOMContentLoaded', () => {
-    // --- Variable Declarations ---
-    const sidebarMenu = document.getElementById('sidebarMenu');
-    const hamburgerIcon = document.querySelector('.hamburger-icon');
-    const profileDropdown = document.getElementById('profileDropdown');
-    const overlay = document.querySelector('.overlay');
-    const liveChatPopup = document.getElementById('liveChatPopup');
-    const body = document.body;
-    const themeSwitcher = document.getElementById('theme-switcher');
-
-    // Live Chat Elements
-    const chatBody = document.getElementById('chatBody');
-    const chatInput = document.getElementById('chatInput');
-    const sendBtn = document.getElementById('sendBtn');
-    const liveChatButton = document.querySelector('.live-chat-button');
-    const closeChatBtn = document.querySelector('.live-chat-popup-content .close-btn');
-
-    // Advisor Popup Elements
-    const advisorNameEl = document.getElementById('advisor-name');
-    const advisorSpecialtyEl = document.getElementById('advisor-specialty');
-    const advisorExpEl = document.getElementById('advisor-exp');
-    const advisorBioEl = document.getElementById('advisor-bio');
-    const advisorPicEl = document.getElementById('advisor-pic');
-
-    // Session Popup Elements
-    // const sessionTitleEl = document.getElementById('session-title');
-    // const sessionDescriptionEl = document.getElementById('session-description');
-    // const sessionIconEl = document.getElementById('session-icon');
-
-
-    
-    // --- Helper Functions ---
-    function closeAll() {
-        sidebarMenu.classList.remove('active');
-        hamburgerIcon.classList.remove('active');
-        profileDropdown.classList.remove('active');
-        liveChatPopup.classList.remove('active');
-        const allPopups = document.querySelectorAll('.popup-overlay');
-        allPopups.forEach(p => p.classList.remove('active'));
-        overlay.classList.remove('active');
-        document.body.style.overflow = 'auto'; // Reset overflow
-    }
-
-    function toggleSideMenu() {
-        const isActive = sidebarMenu.classList.contains('active');
-        closeAll(); // Close all other elements first
-        if (!isActive) {
-            sidebarMenu.classList.add('active');
-            hamburgerIcon.classList.add('active');
-            overlay.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-    }
-
-    function toggleProfileDropdown() {
-        const isActive = profileDropdown.classList.contains('active');
-        closeAll(); // Close all other elements first
-        if (!isActive) {
-            profileDropdown.classList.add('active');
-            overlay.classList.add('active'); // Activate overlay for profile dropdown
-        }
-    }
-
-    function openPopup(popupId) {
-        closeAll(); // Close everything before opening a new popup
-        const popup = document.getElementById(popupId);
-        if (popup) {
-            popup.classList.add('active');
-            overlay.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-    }
-
-    function toggleLiveChatPopup() {
-        const isActive = liveChatPopup.classList.contains('active');
-        closeAll(); // Close all other elements first
-        if (!isActive) {
-            liveChatPopup.classList.add('active');
-            chatInput.focus(); // Focus on the input field when chat opens
-        }
-    }
-
-    function toggleTheme() {
-        body.classList.toggle('day-theme');
-        const isDayTheme = body.classList.contains('day-theme');
-        themeSwitcher.querySelector('span').textContent = isDayTheme ? 'dark_mode' : 'light_mode';
-        localStorage.setItem('theme', isDayTheme ? 'day' : 'night');
-    }
-
-    // --- Live Chat Functionality ---
-    function createMessageElement(message, type) {
-        const messageEl = document.createElement('div');
-        messageEl.classList.add('message', type);
-        messageEl.textContent = message;
-        return messageEl;
-    }
-
-    function scrollToBottom() {
-        chatBody.scrollTop = chatBody.scrollHeight;
-    }
-
-    function getBotResponse(userMessage) {
-        const lowerCaseMessage = userMessage.toLowerCase();
-        if (lowerCaseMessage.includes('hello') || lowerCaseMessage.includes('hi')) {
-            return "Hi there! How can I assist you with your financial questions?";
-        } else if (lowerCaseMessage.includes('advisor') || lowerCaseMessage.includes('expert')) {
-            return "You can find our list of verified financial advisors under the 'Advisors' section on our homepage. What kind of expert are you looking for?";
-        } else if (lowerCaseMessage.includes('pricing') || lowerCaseMessage.includes('cost')) {
-            return "Pricing details are available on the 'Pricing' page. The cost of a session depends on the advisor and the session type (chat, voice, or video).";
-        } else if (lowerCaseMessage.includes('tax') || lowerCaseMessage.includes('income')) {
-            return "We have several tax consultants who can help you with tax filing, planning, and other related queries. You can find them under the 'Advisors' section.";
-        } else if (lowerCaseMessage.includes('thanks') || lowerCaseMessage.includes('thank you')) {
-            return "You're welcome! Let me know if you need anything else.";
-        } else if (lowerCaseMessage.includes('credit')) {
-            return "Our credit system lets you pre-purchase sessions. You can find more details and top up your credits in your profile dropdown menu.";
-        } else if (lowerCaseMessage.includes('bye') || lowerCaseMessage.includes('goodbye')) {
-            return "Goodbye! Feel free to reach out anytime you have more questions.";
-        } else {
-            return "I'm sorry, I don't understand that. You can either book a session with an expert or ask me about our services like pricing or finding an advisor.";
-        }
-    }
-
-    function sendMessage() {
-        const message = chatInput.value.trim();
-        if (message === '') return;
-
-        chatBody.appendChild(createMessageElement(message, 'user'));
-        chatInput.value = '';
-        scrollToBottom();
-
-        setTimeout(() => {
-            const botResponse = getBotResponse(message);
-            chatBody.appendChild(createMessageElement(botResponse, 'bot'));
-            scrollToBottom();
-        }, 500);
-    }
-
-    // --- Event Listeners ---
-    // Header & Sidebar
-    hamburgerIcon.addEventListener('click', toggleSideMenu);
-    document.querySelector('.menu-header .icon-btn').addEventListener('click', toggleSideMenu);
-    document.querySelector('.user-icon').addEventListener('click', toggleProfileDropdown);
-
-    // Overlay to close all popups
-    overlay.addEventListener('click', closeAll);
-
-    // Theme Switcher
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme === 'day') {
-        body.classList.add('day-theme');
-        themeSwitcher.querySelector('span').textContent = 'dark_mode';
-    } else {
-        body.classList.remove('day-theme');
-        themeSwitcher.querySelector('span').textContent = 'light_mode';
-    }
-    themeSwitcher.addEventListener('click', toggleTheme);
-
-    // FAQ Accordion
-    const faqItems = document.querySelectorAll('.faq-item');
-    faqItems.forEach(item => {
-        const question = item.querySelector('.faq-question');
-        question.addEventListener('click', () => {
-            const isActive = item.classList.contains('active');
-            faqItems.forEach(otherItem => {
-                otherItem.classList.remove('active');
-            });
-            if (!isActive) {
-                item.classList.add('active');
+        // 🔄 Auto-redirect if already logged in
+        auth.onAuthStateChanged((user) => {
+            if (user) {
+                window.location.href = "login.html"; // go straight to dashboard
             }
         });
-    });
 
-    // Advisor Details Popup
-    const bookNowBtns = document.querySelectorAll('.book-now-btn');
-    bookNowBtns.forEach(button => {
-        button.addEventListener('click', (e) => {
-            e.stopPropagation();
-            const card = e.target.closest('.advisor-card');
-            const advisorData = {
-                name: card.dataset.advisorName,
-                specialty: card.dataset.advisorSpecialty,
-                exp: card.dataset.advisorExp,
-                bio: card.dataset.advisorBio
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- Variable Declarations ---
+            const sidebarMenu = document.getElementById('sidebarMenu');
+            const hamburgerIcon = document.querySelector('.hamburger-icon');
+            const profileDropdown = document.getElementById('profileDropdown');
+            const overlay = document.querySelector('.overlay');
+            const liveChatPopup = document.getElementById('liveChatPopup');
+            const body = document.body;
+            const themeSwitcher = document.getElementById('theme-switcher');
+
+            // Live Chat Elements
+            const chatBody = document.getElementById('chatBody');
+            const chatInput = document.getElementById('chatInput');
+            const sendBtn = document.getElementById('sendBtn');
+            const liveChatButton = document.querySelector('.live-chat-button');
+            const closeChatBtn = document.querySelector('.live-chat-popup-content .close-btn');
+
+            // Advisor Popup Elements
+            const advisorNameEl = document.getElementById('advisor-name');
+            const advisorSpecialtyEl = document.getElementById('advisor-specialty');
+            const advisorExpEl = document.getElementById('advisor-exp');
+            const advisorBioEl = document.getElementById('advisor-bio');
+            const advisorPicEl = document.getElementById('advisor-pic');
+
+            // Session Popup Elements
+            // const sessionTitleEl = document.getElementById('session-title');
+            // const sessionDescriptionEl = document.getElementById('session-description');
+            // const sessionIconEl = document.getElementById('session-icon');
+
+
+
+            // --- Helper Functions ---
+            function closeAll() {
+                sidebarMenu.classList.remove('active');
+                hamburgerIcon.classList.remove('active');
+                profileDropdown.classList.remove('active');
+                liveChatPopup.classList.remove('active');
+                const allPopups = document.querySelectorAll('.popup-overlay');
+                allPopups.forEach(p => p.classList.remove('active'));
+                overlay.classList.remove('active');
+                document.body.style.overflow = 'auto'; // Reset overflow
+            }
+
+            function toggleSideMenu() {
+                const isActive = sidebarMenu.classList.contains('active');
+                closeAll(); // Close all other elements first
+                if (!isActive) {
+                    sidebarMenu.classList.add('active');
+                    hamburgerIcon.classList.add('active');
+                    overlay.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                }
+            }
+
+            function toggleProfileDropdown() {
+                const isActive = profileDropdown.classList.contains('active');
+                closeAll(); // Close all other elements first
+                if (!isActive) {
+                    profileDropdown.classList.add('active');
+                    overlay.classList.add('active'); // Activate overlay for profile dropdown
+                }
+            }
+
+            function openPopup(popupId) {
+                closeAll(); // Close everything before opening a new popup
+                const popup = document.getElementById(popupId);
+                if (popup) {
+                    popup.classList.add('active');
+                    overlay.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                }
+            }
+
+            function toggleLiveChatPopup() {
+                const isActive = liveChatPopup.classList.contains('active');
+                closeAll(); // Close all other elements first
+                if (!isActive) {
+                    liveChatPopup.classList.add('active');
+                    chatInput.focus(); // Focus on the input field when chat opens
+                }
+            }
+
+            function toggleTheme() {
+                body.classList.toggle('day-theme');
+                const isDayTheme = body.classList.contains('day-theme');
+                themeSwitcher.querySelector('span').textContent = isDayTheme ? 'dark_mode' : 'light_mode';
+                localStorage.setItem('theme', isDayTheme ? 'day' : 'night');
+            }
+
+            // --- Live Chat Functionality ---
+            function createMessageElement(message, type) {
+                const messageEl = document.createElement('div');
+                messageEl.classList.add('message', type);
+                messageEl.textContent = message;
+                return messageEl;
+            }
+
+            function scrollToBottom() {
+                chatBody.scrollTop = chatBody.scrollHeight;
+            }
+
+            function getBotResponse(userMessage) {
+                const lowerCaseMessage = userMessage.toLowerCase();
+                if (lowerCaseMessage.includes('hello') || lowerCaseMessage.includes('hi')) {
+                    return "Hi there! How can I assist you with your financial questions?";
+                } else if (lowerCaseMessage.includes('advisor') || lowerCaseMessage.includes('expert')) {
+                    return "You can find our list of verified financial advisors under the 'Advisors' section on our homepage. What kind of expert are you looking for?";
+                } else if (lowerCaseMessage.includes('pricing') || lowerCaseMessage.includes('cost')) {
+                    return "Pricing details are available on the 'Pricing' page. The cost of a session depends on the advisor and the session type (chat, voice, or video).";
+                } else if (lowerCaseMessage.includes('tax') || lowerCaseMessage.includes('income')) {
+                    return "We have several tax consultants who can help you with tax filing, planning, and other related queries. You can find them under the 'Advisors' section.";
+                } else if (lowerCaseMessage.includes('thanks') || lowerCaseMessage.includes('thank you')) {
+                    return "You're welcome! Let me know if you need anything else.";
+                } else if (lowerCaseMessage.includes('credit')) {
+                    return "Our credit system lets you pre-purchase sessions. You can find more details and top up your credits in your profile dropdown menu.";
+                } else if (lowerCaseMessage.includes('bye') || lowerCaseMessage.includes('goodbye')) {
+                    return "Goodbye! Feel free to reach out anytime you have more questions.";
+                } else {
+                    return "I'm sorry, I don't understand that. You can either book a session with an expert or ask me about our services like pricing or finding an advisor.";
+                }
+            }
+
+            function sendMessage() {
+                const message = chatInput.value.trim();
+                if (message === '') return;
+
+                chatBody.appendChild(createMessageElement(message, 'user'));
+                chatInput.value = '';
+                scrollToBottom();
+
+                setTimeout(() => {
+                    const botResponse = getBotResponse(message);
+                    chatBody.appendChild(createMessageElement(botResponse, 'bot'));
+                    scrollToBottom();
+                }, 500);
+            }
+
+            // --- Event Listeners ---
+            // Header & Sidebar
+            hamburgerIcon.addEventListener('click', toggleSideMenu);
+            document.querySelector('.menu-header .icon-btn').addEventListener('click', toggleSideMenu);
+            document.querySelector('.user-icon').addEventListener('click', toggleProfileDropdown);
+
+            // Overlay to close all popups
+            overlay.addEventListener('click', closeAll);
+
+            // Theme Switcher
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'day') {
+                body.classList.add('day-theme');
+                themeSwitcher.querySelector('span').textContent = 'dark_mode';
+            } else {
+                body.classList.remove('day-theme');
+                themeSwitcher.querySelector('span').textContent = 'light_mode';
+            }
+            themeSwitcher.addEventListener('click', toggleTheme);
+
+            // FAQ Accordion
+            const faqItems = document.querySelectorAll('.faq-item');
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question');
+                question.addEventListener('click', () => {
+                    const isActive = item.classList.contains('active');
+                    faqItems.forEach(otherItem => {
+                        otherItem.classList.remove('active');
+                    });
+                    if (!isActive) {
+                        item.classList.add('active');
+                    }
+                });
+            });
+
+            // Advisor Details Popup
+            const bookNowBtns = document.querySelectorAll('.book-now-btn');
+            bookNowBtns.forEach(button => {
+                button.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const card = e.target.closest('.advisor-card');
+                    const advisorData = {
+                        name: card.dataset.advisorName,
+                        specialty: card.dataset.advisorSpecialty,
+                        exp: card.dataset.advisorExp,
+                        bio: card.dataset.advisorBio
+                    };
+                    advisorNameEl.textContent = advisorData.name;
+                    advisorSpecialtyEl.textContent = advisorData.specialty;
+                    advisorExpEl.textContent = advisorData.exp;
+                    advisorBioEl.textContent = advisorData.bio;
+                    advisorPicEl.textContent = advisorData.name.charAt(0);
+                    openPopup('advisorDetailsPopup');
+                });
+            });
+
+            // Session Details Popup
+            const sessionCards = document.querySelectorAll('.session-card');
+            const sessionDescriptions = {
+                chat: {
+                    title: 'Chat Session',
+                    icon: 'chat',
+                    description: 'A text-based consultation perfect for quick questions and ongoing discussions. Get expert advice without the need for a call or video.',
+                },
+                voice: {
+                    title: 'Voice Session',
+                    icon: 'call',
+                    description: 'A one-on-one audio consultation for in-depth conversations about your financial goals and concerns. Schedule a call with your chosen expert.',
+                },
+                video: {
+                    title: 'Video Session',
+                    icon: 'videocam',
+                    description: 'The most comprehensive option. A face-to-face video consultation to discuss complex financial matters and receive detailed feedback.'
+                }
             };
-            advisorNameEl.textContent = advisorData.name;
-            advisorSpecialtyEl.textContent = advisorData.specialty;
-            advisorExpEl.textContent = advisorData.exp;
-            advisorBioEl.textContent = advisorData.bio;
-            advisorPicEl.textContent = advisorData.name.charAt(0);
-            openPopup('advisorDetailsPopup');
+            sessionCards.forEach(card => {
+                card.addEventListener('click', (e) => {
+                    const sessionType = card.dataset.session;
+                    const sessionInfo = sessionDescriptions[sessionType];
+                    sessionTitleEl.textContent = sessionInfo.title;
+                    sessionDescriptionEl.textContent = sessionInfo.description;
+                    sessionIconEl.textContent = sessionInfo.icon;
+                    openPopup('sessionDetailsPopup');
+                });
+            });
+
+            // Live Chat event listeners
+            liveChatButton.addEventListener('click', toggleLiveChatPopup);
+            closeChatBtn.addEventListener('click', toggleLiveChatPopup);
+            sendBtn.addEventListener('click', sendMessage);
+            chatInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    sendMessage();
+                }
+            });
+
+            // Close popups on 'x' icon click
+            const popupCloseButtons = document.querySelectorAll('.popup-close');
+            popupCloseButtons.forEach(btn => {
+                btn.addEventListener('click', closeAll);
+            });
+
+            // Bind `toggleProfileDropdown` to `onclick` attribute to ensure it works
+            const userIcon = document.querySelector('.user-icon');
+            if (userIcon) {
+                userIcon.onclick = toggleProfileDropdown;
+            }
         });
-    });
-
-    // Session Details Popup
-    const sessionCards = document.querySelectorAll('.session-card');
-    const sessionDescriptions = {
-        chat: {
-            title: 'Chat Session',
-            icon: 'chat',
-            description: 'A text-based consultation perfect for quick questions and ongoing discussions. Get expert advice without the need for a call or video.',
-        },
-        voice: {
-            title: 'Voice Session',
-            icon: 'call',
-            description: 'A one-on-one audio consultation for in-depth conversations about your financial goals and concerns. Schedule a call with your chosen expert.',
-        },
-        video: {
-            title: 'Video Session',
-            icon: 'videocam',
-            description: 'The most comprehensive option. A face-to-face video consultation to discuss complex financial matters and receive detailed feedback.'
-        }
-    };
-    sessionCards.forEach(card => {
-        card.addEventListener('click', (e) => {
-            const sessionType = card.dataset.session;
-            const sessionInfo = sessionDescriptions[sessionType];
-            sessionTitleEl.textContent = sessionInfo.title;
-            sessionDescriptionEl.textContent = sessionInfo.description;
-            sessionIconEl.textContent = sessionInfo.icon;
-            openPopup('sessionDetailsPopup');
-        });
-    });
-
-    // Live Chat event listeners
-    liveChatButton.addEventListener('click', toggleLiveChatPopup);
-    closeChatBtn.addEventListener('click', toggleLiveChatPopup);
-    sendBtn.addEventListener('click', sendMessage);
-    chatInput.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') {
-            sendMessage();
-        }
-    });
-
-    // Close popups on 'x' icon click
-    const popupCloseButtons = document.querySelectorAll('.popup-close');
-    popupCloseButtons.forEach(btn => {
-        btn.addEventListener('click', closeAll);
-    });
-
-    // Bind `toggleProfileDropdown` to `onclick` attribute to ensure it works
-    const userIcon = document.querySelector('.user-icon');
-    if (userIcon) {
-        userIcon.onclick = toggleProfileDropdown;
-    }
-});
     </script>
 </body>
 
